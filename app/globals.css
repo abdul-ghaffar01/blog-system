@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+@theme {
+  --dark-mode: class;
+}
+@import "tailwindcss";
+
+@theme {
+  --dark-mode: class;
+}
+
+:root {
+  /* Grays */
+  --background: #f9fafb; /* gray-50 */
+  --surface: #ffffff; /* white */
+  --foreground: #111827; /* gray-900 */
+  --muted: #4b5563; /* gray-600 */
+  --border: #e5e7eb; /* gray-200 */
+
+  /* Semantic */
+  --primary: #2563eb; /* blue-600 */
+  --primary-hover: #1d4ed8; /*blue-700 */
+
+  --success: #16a34a; /* green-600 */
+  --success-hover: #15803d; /* green-700 */
+
+  --warning: #ca8a04; /* yellow-600 */
+  --warning-hover: #a16207; /* yellow-700 */
+
+  --danger: #dc2626; /* red-600 */
+  --danger-hover: #b91c1c; /* red-700 */
+}
+
+.dark {
+  /* Grays */
+  --background: #111827; /* gray-900 */
+  --surface: #1f2937; /* gray-800 */
+  --foreground: #f9fafb; /* gray-50 */
+  --muted: #9ca3af; /* gray-400 */
+  --border: #374151; /* gray-700 */
+
+  /* Semantic */
+  --primary: #2563eb; /* blue-600 */
+  --primary-hover: #1d4ed8; /* blue-700 */
+
+  --success: #16a34a; /* green-600 */
+  --success-hover: #15803d; /* green-700 */
+
+  --warning: #ca8a04; /* yellow-600 */
+  --warning-hover: #a16207; /* yellow-700 */
+
+  --danger: #dc2626; /* red-600 */
+  --danger-hover: #b91c1c; /* red-700 */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+
+  --color-success: var(--success);
+  --color-success-hover: var(--success-hover);
+
+  --color-warning: var(--warning);
+  --color-warning-hover: var(--warning-hover);
+
+  --color-danger: var(--danger);
+  --color-danger-hover: var(--danger-hover);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
