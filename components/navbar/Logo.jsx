@@ -7,7 +7,7 @@ const Logo = ({ startDelay }) => {
         <ClientOnly>
 
             <motion.div
-                className="relative w-[60px] h-[60px] flex items-center justify-center"
+                className="relative w-[50px] h-[50px] flex items-center justify-center"
             >
                 {/* Lines */}
                 <div className="absolute top-0 w-full h-full">
@@ -49,7 +49,7 @@ const Logo = ({ startDelay }) => {
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1, transition: { duration: 0.4, delay: 1.6 } }}
                     viewport={{ once: true }}
-                    className="absolute text-2xl font-extrabold text-foreground tracking-widest"
+                    className="absolute text-xl font-extrabold text-foreground tracking-widest"
                 >
                     AG
                 </motion.div>

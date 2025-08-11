@@ -14,7 +14,10 @@ export default function Home() {
       <Card>
         <h2 className="text-xl font-semibold mb-2">Card Title</h2>
         <p className="text-muted mb-4">This is some card content.</p>
-        <Button onClick={() => setOpen(true)}>Open Modal</Button>
+        <Button
+        className="bg-red-500"
+        onClick={() => setOpen(true)}>Open Modal</Button>
+        
       </Card>
 
       <Modal isOpen={open} onClose={() => setOpen(false)}>

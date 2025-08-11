@@ -1,5 +1,7 @@
 import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
+import Navbar from "@/components/navbar/Navbar";
+import Search from "@/components/search/Search";
 
 export const metadata = {
   title: "Create Next App",
@@ -11,6 +13,8 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <body>
         <ThemeProvider>
+          <Navbar />
+          <Search />
           {children}
         </ThemeProvider>
       </body>

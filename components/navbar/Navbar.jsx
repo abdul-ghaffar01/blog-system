@@ -1,9 +1,70 @@
-import React from 'react'
+"use client";
+
+import { useEffect, useState } from "react";
+import { Menu, X, Search } from "lucide-react";
+import ThemeToggle from "./ThemeToggle";
+import Logo from "./Logo";
+import Link from "next/link";
+import useSearchStore from "@/stores/useSearchStore";
 
 const Navbar = () => {
-  return (
-    <div>Navbar</div>
-  )
-}
+  const { setSearching } = useSearchStore();
 
-export default Navbar
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.ctrlKey && event.key.toLowerCase() === "k") {
+        event.preventDefault(); // prevent browser default Ctrl+K action
+        handleSearch()
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    // Cleanup on unmount
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [])
+
+  const handleSearch = () => {
+    console.log("handling search")
+    setSearching(true);
+  }
+
+  return (
+    <header className="w-full bg-surface border-b border-border sticky top-0 z-50">
+      <div className="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
+        {/* Logo */}
+        <Link href="/" className="text-lg font-bold text-primary ">
+          <Logo />
+        </Link>
+
+        {/* Right Actions */}
+        <div className="flex items-center gap-4">
+          {/* Search */}
+          <button
+            onClick={handleSearch}
+            className="flex justify-center items-center md:justify-between bg-background w-10 h-10 md:w-[300px] p-2 md:rounded-md rounded-full overflow-hidden">
+            <p className="text-muted m-0 hidden md:block">Search anything...</p>
+            <div className="h-full hidden md:flex items-center gap-1 bg-surface px-2 p-1">
+              <kbd className="text-sm text-muted">⌘</kbd>
+              <kbd className="text-sm text-muted">K</kbd>
+            </div>
+            <div className="">
+              <Search size={20} className="md:hidden" />
+            </div>
+          </button>
+
+          {/* Theme Toggle */}
+          <ThemeToggle />
+
+
+        </div>
+      </div>
+
+
+    </header>
+  );
+};
+
+export default Navbar;

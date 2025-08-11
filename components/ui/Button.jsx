@@ -16,22 +16,22 @@ export default function Button({
         primary: {
             bg: "bg-primary",
             hover: "hover:bg-primary-hover",
-            text: "text-foreground",
+            text: "text-white",
         },
         success: {
             bg: "bg-success",
             hover: "hover:bg-success-hover",
-            text: "text-foreground",
+            text: "text-white",
         },
         warning: {
             bg: "bg-warning",
             hover: "hover:bg-warning-hover",
-            text: "text-foreground",
+            text: "text-white",
         },
         danger: {
             bg: "bg-danger",
             hover: "hover:bg-danger-hover",
-            text: "text-foreground",
+            text: "text-white",
         },
     };
 
