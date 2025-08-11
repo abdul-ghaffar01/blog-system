@@ -1,6 +1,7 @@
 "use client";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import Button from "../ui/Button";
 
 export default function ThemeToggle() {
     const { theme, setTheme } = useTheme();
@@ -11,8 +12,8 @@ export default function ThemeToggle() {
     if (!mounted) return null;
 
     return (
-        <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
+        <Button disabled="true" loading={true} variant="success" onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
             {theme === "light" ? "🌙 Dark" : "☀️ Light"}
-        </button>
+        </Button>
     );
 }

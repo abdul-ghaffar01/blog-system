@@ -1,5 +1,5 @@
+import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
-import { ThemeProvider } from "./ThemeProvider";
 
 export const metadata = {
   title: "Create Next App",
