@@ -44,16 +44,23 @@ const Navbar = () => {
           {/* Search */}
           <button
             onClick={handleSearch}
-            className="flex justify-center items-center md:justify-between bg-background w-10 h-10 md:w-[300px] p-2 md:rounded-md rounded-full overflow-hidden">
+            className="flex items-center justify-center md:justify-between bg-background w-10 h-10 md:w-[300px] p-2 md:rounded-md rounded-full overflow-hidden"
+          >
+            {/* Text - only on md and up */}
             <p className="text-muted m-0 hidden md:block">Search anything...</p>
-            <div className="h-full hidden md:flex items-center gap-1 bg-surface px-2 p-1">
+
+            {/* Shortcut Keys - only on md and up */}
+            <div className="hidden md:flex items-center gap-1 bg-surface px-2 py-1 rounded">
               <kbd className="text-sm text-muted">⌘</kbd>
               <kbd className="text-sm text-muted">K</kbd>
             </div>
-            <div className="">
-              <Search size={20} className="md:hidden" />
+
+            {/* Mobile Search Icon - only on mobile */}
+            <div className="md:hidden flex items-center">
+              <Search size={20} />
             </div>
           </button>
+
 
           {/* Theme Toggle */}
           <ThemeToggle />

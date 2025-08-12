@@ -12,7 +12,8 @@
 :root {
   /* Grays */
   --background: #f9fafb; /* gray-50 */
-  --surface: #ffffff; /* white */
+  --surface: #e5e7eb; /* Tailwind gray-200 */
+
   --foreground: #111827; /* gray-900 */
   --muted: #4b5563; /* gray-600 */
   --border: #e5e7eb; /* gray-200 */
