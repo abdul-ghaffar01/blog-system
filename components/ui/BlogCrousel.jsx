@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -11,6 +11,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 // Custom Arrow Component
 function Arrow({ onClick, direction }) {
+
     return (
         <button
             onClick={onClick}
@@ -27,11 +28,31 @@ function Arrow({ onClick, direction }) {
 }
 
 export default function BlogCarousel({ blogs }) {
+
+    const [slidesToShow, setSlidesToShow] = useState(3);
+
+    useEffect(() => {
+        const updateSlides = () => {
+            if (window.innerWidth < 640) {
+                setSlidesToShow(1);
+            } else if (window.innerWidth < 1024) {
+                setSlidesToShow(2);
+            } else {
+                setSlidesToShow(3);
+            }
+        };
+
+        updateSlides();
+        window.addEventListener("resize", updateSlides);
+        return () => window.removeEventListener("resize", updateSlides);
+    }, []);
+
+
     const settings = {
         dots: true,
         infinite: true,
         speed: 600,
-        slidesToShow: 3,
+        slidesToShow,
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 4000,
