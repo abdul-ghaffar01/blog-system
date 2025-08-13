@@ -5,7 +5,11 @@ export default function Hero() {
   return (
     <section className="flex items-center justify-center w-full h-[60vh] overflow-hidden">
       {/* left image */}
-      <div className="hidden md:block md:flex-1 h-full relative">
+      <motion.div
+        initial={{ x: -150, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="hidden md:block md:flex-1 h-full relative">
         <Image
           src="/hero_section.png"
           alt="Blog reading guy image"
@@ -13,18 +17,29 @@ export default function Hero() {
           className="object-cover"
           priority
         />
-      </div>
+      </motion.div>
 
 
       {/* angled divider */}
-      <div className="relative hidden md:block right-8 bg-background rotate-[7deg] w-15 h-[200%] "></div>
+      <motion.div
+        initial={{ x: -150,}}
+        animate={{ x: 0}}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="relative hidden w-24 h-[200%] md:flex items-center justify-center">
+        {/* Red angled bar */}
+        <div className="absolute bg-background rotate-[8deg] origin-center w-24 h-[200%]"></div>
+
+        {/* Blue angled bar */}
+        <div className="absolute bg-background rotate-[-8deg] origin-center w-24 h-[200%]"></div>
+      </motion.div>
+
 
       {/* right content */}
       <motion.div
         initial={{ opacity: 0, x: 50 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="bg-background flex-1 flex flex-col justify-center md:pr-8 px-2 md:px-0 text-center md:text-left"
+        className="bg-background z-2 mx-auto w-fit flex-1 flex flex-col justify-center md:pr-8 px-2 md:px-0 text-center md:text-left"
       >
         <motion.h1
           initial={{ y: 20, opacity: 0 }}
