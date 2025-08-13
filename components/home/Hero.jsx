@@ -48,7 +48,7 @@ export default function Hero() {
           className="text-4xl md:text-5xl font-bold leading-tight"
         >
           Welcome to{" "}
-          <span className="text-primary">Your Knowledge Hub</span>
+          <span className="text-primary">Your Knowledge Hub 1</span>
         </motion.h1>
 
         <motion.p
