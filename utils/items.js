@@ -31,9 +31,9 @@ const items = [
         type: "code",
         language: "bash",
         code: `mkdir ai-chatbot
-            cd ai-chatbot
-            npx create-next-app frontend
-            mkdir backend && cd backend && npm init -y`,
+cd ai-chatbot
+npx create-next-app frontend
+mkdir backend && cd backend && npm init -y`,
         styles: ["bg-gray-900", "text-white", "p-4", "rounded", "my-4"],
     },
     {
@@ -51,14 +51,14 @@ const items = [
         type: "code",
         language: "javascript",
         code: `const WebSocket = require("ws");
-            const wss = new WebSocket.Server({ port: 8080 });
+const wss = new WebSocket.Server({ port: 8080 });
 
-            wss.on("connection", (ws) => {
-                ws.on("message", (message) => {
-                    console.log("Received:", message);
-                    ws.send("You said: " + message);
-                });
-            });`,
+wss.on("connection", (ws) => {
+    ws.on("message", (message) => {
+        console.log("Received:", message);
+        ws.send("You said: " + message);
+    });
+});`,
         styles: ["bg-gray-900", "text-white", "p-4", "rounded", "my-4"],
     },
     {
@@ -110,13 +110,13 @@ const items = [
         type: "code",
         language: "javascript",
         code: `async function getAIResponse(message) {
-                const response = await fetch("/api/ai", {
-                    method: "POST",
-                    body: JSON.stringify({ message }),
-                });
-                const data = await response.json();
-                return data.reply;
-            }`,
+    const response = await fetch("/api/ai", {
+        method: "POST",
+        body: JSON.stringify({ message }),
+    });
+    const data = await response.json();
+    return data.reply;
+}`,
         styles: ["bg-gray-900", "text-white", "p-4", "rounded", "my-4"],
     },
     {
