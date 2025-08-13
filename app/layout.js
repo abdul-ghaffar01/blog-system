@@ -62,7 +62,7 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <ThemeProvider>
-          <Navbar />
+          {/* Want to open it everywhere with ctrl + k that's why adding here */}
           <Search />
           {children}
         </ThemeProvider>

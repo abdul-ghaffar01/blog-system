@@ -13,7 +13,7 @@ export default function Table({ item }) {
             {item.headers.map((header, idx) => (
               <th
                 key={idx}
-                className="text-left px-4 py-2"
+                className="text-left px-2 py-2"
                 style={{ color: "var(--color-foreground)", border: `1px solid var(--color-border)` }}
               >
                 {header}
@@ -27,7 +27,7 @@ export default function Table({ item }) {
               {row.map((cell, cellIdx) => (
                 <td
                   key={cellIdx}
-                  className="px-4 py-2"
+                  className="px-2 py-2"
                   style={{ color: "var(--color-muted)", border: `1px solid var(--color-border)` }}
                 >
                   {cell}
