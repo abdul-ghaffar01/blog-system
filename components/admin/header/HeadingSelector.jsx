@@ -1,12 +1,17 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import onAction from "@/utils/admin/onAction";
 
-export default function HeadingSelector({ headingLevel, setHeadingLevel, editor }) {
+export default function HeadingSelector() {
+    const [headingLevel, setHeadingLevel] = useState("");
+
     const handleHeadingChange = (e) => {
-        const value = e.target.value;
-        setHeadingLevel(value);
-        onAction("heading", value, editor);
+        const value = e.target.value; // this is the actual tag value
+        if (value !== "heading") {
+            onAction("heading", value);   // pass the tag
+            setHeadingLevel("heading");   // reset to default display
+        }
+
     };
 
     return (
@@ -15,12 +20,12 @@ export default function HeadingSelector({ headingLevel, setHeadingLevel, editor 
             onChange={handleHeadingChange}
             className="border rounded px-2 py-1 bg-background text-foreground"
         >
-            <option>Normal</option>
-            <option>H1</option>
-            <option>H2</option>
-            <option>H3</option>
-            <option>H4</option>
-            <option>p</option>
+            <option value="heading">Heading</option>
+            <option value="h1">H1</option>
+            <option value="h2">H2</option>
+            <option value="h3">H3</option>
+            <option value="h4">H4</option>
+            <option value="p">p</option>
         </select>
     );
 }

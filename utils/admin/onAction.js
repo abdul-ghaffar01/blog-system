@@ -3,6 +3,7 @@ import handleHeading from "./handleHeading";
 import handleImage from "./handleImage";
 import updatePreview from "./updatePreview";
 import handleLink from "./handleLink";
+import handleCode from "./handleCode";
 
 const onAction = (type, val) => {
     const editor = useAdminStore.getState().editor
@@ -18,6 +19,9 @@ const onAction = (type, val) => {
             break;
         case "link":
             handleLink(val, editor)
+            break;
+        case "code":
+            handleCode(val, editor)
             break;
         default:
             return;

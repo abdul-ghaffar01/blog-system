@@ -9,19 +9,16 @@ import AlignButtons from "./header/AlignButtons";
 import Actions from "./header/Actions";
 
 export default function AdminHeader() {
-  const [headingLevel, setHeadingLevel] = useState("Normal");
-  const [align, setAlign] = useState("left");
-  const { editor } = useAdminStore();
 
   return (
     <div className="flex flex-col md:flex-row sticky top-0 items-center justify-between p-3 shadow-md bg-surface">
       {/* Left section */}
       <div className="flex items-center gap-2 flex-wrap">
-        <HeadingSelector headingLevel={headingLevel} setHeadingLevel={setHeadingLevel} editor={editor} />
+        <HeadingSelector />
         <FormattingButtons />
         <MediaButtons />
         <ListButtons />
-        <AlignButtons align={align} setAlign={setAlign} />
+        <AlignButtons />
       </div>
 
       {/* Right section */}

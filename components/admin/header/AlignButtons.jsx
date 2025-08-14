@@ -2,12 +2,23 @@
 import React from "react";
 import { AlignLeft, AlignCenter, AlignRight } from "lucide-react";
 import onAction from "@/utils/admin/onAction";
+import useAdminStore from "@/stores/useAdminStore";
+import updatePreview from "@/utils/admin/updatePreview";
 
-export default function AlignButtons({ align, setAlign }) {
+export default function AlignButtons() {
+  const { selectedItem } = useAdminStore();
+
   const handleAlignChange = (alignment) => {
-    setAlign(alignment);
-    onAction("align", alignment);
+    if (!selectedItem) return;
+
+    // Remove any existing text alignment classes first
+    selectedItem.classList.remove("text-left", "text-center", "text-right", "text-justify");
+
+    // Add the new alignment class
+    selectedItem.classList.add(`text-${alignment}`);
+    updatePreview();
   };
+
 
   return (
     <>

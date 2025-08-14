@@ -6,6 +6,7 @@ export default function extractItems(editor) {
     .map((el) => {
       const tag = el.tagName.toLowerCase();
       const styles = el.className ? el.className.split(" ") : [];
+      console.log(styles)
 
       if (tag.startsWith("h")) {
         return {
@@ -33,13 +34,12 @@ export default function extractItems(editor) {
         };
       }
 
-      if (tag === "pre" && el.querySelector("code")) {
+      if (tag === "pre") {
         return {
           type: "code",
           language: el
-            .querySelector("code")
             .className.replace("language-", ""),
-          code: el.querySelector("code").innerText,
+          code: el.innerText,
           styles: null,
         };
       }
@@ -103,6 +103,7 @@ export default function extractItems(editor) {
       return null;
     })
     .filter(Boolean);
+  console.log(extracted)
 
   return extracted;
 }
