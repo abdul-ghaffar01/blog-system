@@ -4,6 +4,7 @@ import handleImage from "./handleImage";
 import updatePreview from "./updatePreview";
 import handleLink from "./handleLink";
 import handleCode from "./handleCode";
+import updateTagsPanel from "./updateTagsPanel";
 
 const onAction = (type, val) => {
     const editor = useAdminStore.getState().editor
@@ -27,20 +28,7 @@ const onAction = (type, val) => {
             return;
     }
 
-    // After action, update store with current editor elements
-    const updatedElements = Array.from(editor.querySelectorAll("*")).map((el) => ({
-        tag: el.tagName.toLowerCase(),
-        styles: {
-            color: el.style.color || "",
-            fontSize: el.style.fontSize || "",
-            backgroundColor: el.style.backgroundColor || ""
-        },
-        content: el.innerText,
-        elem: el
-    }));
-
-    useAdminStore.getState().setElements(updatedElements);
-
+    updateTagsPanel();
     updatePreview()
 };
 
