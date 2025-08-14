@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import onAction from "@/utils/admin/onAction";
 import {
   Bold,
   Italic,
@@ -15,15 +16,17 @@ import {
   Undo,
   Redo,
 } from "lucide-react";
+import useAdminStore from "@/stores/useAdminStore";
 
-const AdminHeader = ({ onAction }) => {
+const AdminHeader = () => {
   const [headingLevel, setHeadingLevel] = useState("Normal");
   const [align, setAlign] = useState("left");
+  const { editor, setEditor } = useAdminStore()
 
   const handleHeadingChange = (e) => {
     const value = e.target.value;
     setHeadingLevel(value);
-    onAction("heading", value);
+    onAction("heading", value, editor);
   };
 
   const handleAlignChange = (alignment) => {

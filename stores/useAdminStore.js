@@ -1,9 +1,27 @@
-import {create} from "zustand";
+import { create } from "zustand";
 
-const useSearchStore = create((set) => ({
-    searching: false,
+const useAdminStore = create((set) => ({
+    editor: null,
+    elements: [],
+    items: [],
+    selectedItem: null,
 
-    setSearching: (isSearching) => set({searching: isSearching})
+    setSelectedItem: (newItem => set({ selectedItem: newItem })),
+    setItems: (newItems) => set({ items: newItems }),
+    setElements: (newElements) => set({ elements: newElements }),
+    updateElementStyle: (index, property, value) =>
+        set((state) => {
+            const updated = [...state.elements];
+            updated[index] = {
+                ...updated[index],
+                styles: {
+                    ...updated[index].styles,
+                    [property]: value,
+                },
+            };
+            return { elements: updated };
+        }),
+    setEditor: (newVal) => set({ editor: newVal }),
 }));
 
-export default useSearchStore;
+export default useAdminStore;

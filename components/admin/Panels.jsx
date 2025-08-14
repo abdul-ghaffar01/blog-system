@@ -53,7 +53,7 @@ export default function ThreePanelLayout({ left, center, right }) {
 
       {/* Left Resizer */}
       <div
-        className="w-[2px] cursor-col-resize bg-border"
+        className="w-1 cursor-col-resize bg-border"
         onMouseDown={startDragLeft}
       />
 
@@ -62,7 +62,7 @@ export default function ThreePanelLayout({ left, center, right }) {
 
       {/* Right Resizer */}
       <div
-        className="w-[2px] cursor-col-resize bg-border"
+        className="w-1 cursor-col-resize bg-border"
         onMouseDown={startDragRight}
       />
 

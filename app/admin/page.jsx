@@ -1,6 +1,8 @@
+import Editor from "@/components/admin/Editor";
 import AdminHeader from "@/components/admin/Header";
 import ThreePanelLayout from "@/components/admin/Panels";
 import Preview from "@/components/admin/Preview";
+import TagsSetting from "@/components/admin/TagsSetting";
 import React from "react";
 
 const Page = () => {
@@ -14,8 +16,8 @@ const Page = () => {
             {/* Panels fill the rest */}
             <div className="flex-1 min-h-0"> {/* min-h-0 is important for scrollable flex children */}
                 <ThreePanelLayout
-                    left={<Preview />}
-                    center={<div>Main Editor</div>}
+                    left={<TagsSetting />}
+                    center={<Editor />}
                     right={<Preview />}
                 />
             </div>
