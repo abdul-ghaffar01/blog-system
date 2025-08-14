@@ -35,6 +35,7 @@ export default function MediaButtons() {
     const val = { href, target, rel, text: linkText }
     if (!href || !target || !linkText) {
       setMessage("Please fill all required fields")
+      return;
     }
     onAction("link", val);
     closeModals();
@@ -48,6 +49,7 @@ export default function MediaButtons() {
     const val = { src, alt }
     if (!src || !alt) {
       setMessage("Please fill all required fields")
+      return;
     }
     onAction("image", val);
     closeModals();
