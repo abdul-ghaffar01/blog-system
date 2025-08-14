@@ -38,14 +38,14 @@ export default function ThreePanelLayout({ left, center, right }) {
   return (
     <div
       ref={containerRef}
-      className="flex w-full h-full bg-red-400"
+      className="flex w-full h-full bg-red-400 "
       onMouseMove={onDrag}
       onMouseUp={stopDrag}
       onMouseLeave={stopDrag}
     >
       {/* Left Panel */}
       <div
-        className="p-2 bg-background shadow-md overflow-auto"
+        className="bg-background shadow-md overflow-auto"
         style={{ width: leftWidth }}
       >
         {left}
@@ -58,7 +58,7 @@ export default function ThreePanelLayout({ left, center, right }) {
       />
 
       {/* Center Panel */}
-      <div className="p-2 flex-1 bg-background overflow-auto">{center}</div>
+      <div className="flex-1 bg-background overflow-auto">{center}</div>
 
       {/* Right Resizer */}
       <div
@@ -68,7 +68,7 @@ export default function ThreePanelLayout({ left, center, right }) {
 
       {/* Right Panel */}
       <div
-        className="p-2 bg-background shadow-md overflow-auto"
+        className="bg-background shadow-md overflow-auto"
         style={{ width: rightWidth }}
       >
         {right}

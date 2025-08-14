@@ -1,0 +1,25 @@
+"use client";
+import React from "react";
+import { AlignLeft, AlignCenter, AlignRight } from "lucide-react";
+import onAction from "@/utils/admin/onAction";
+
+export default function AlignButtons({ align, setAlign }) {
+  const handleAlignChange = (alignment) => {
+    setAlign(alignment);
+    onAction("align", alignment);
+  };
+
+  return (
+    <>
+      <button onClick={() => handleAlignChange("left")} title="Align Left" className="p-2 hover:bg-background rounded transition">
+        <AlignLeft size={18} />
+      </button>
+      <button onClick={() => handleAlignChange("center")} title="Align Center" className="p-2 hover:bg-background rounded transition">
+        <AlignCenter size={18} />
+      </button>
+      <button onClick={() => handleAlignChange("right")} title="Align Right" className="p-2 hover:bg-background rounded transition">
+        <AlignRight size={18} />
+      </button>
+    </>
+  );
+}

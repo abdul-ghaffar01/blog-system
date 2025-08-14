@@ -1,15 +1,23 @@
 import useAdminStore from "@/stores/useAdminStore";
 import handleHeading from "./handleHeading";
-import extractItems from "./extractItems";
+import handleImage from "./handleImage";
+import updatePreview from "./updatePreview";
+import handleLink from "./handleLink";
 
-const onAction = (type, val, editor) => {
-    console.log("Came to onAction");
+const onAction = (type, val) => {
+    const editor = useAdminStore.getState().editor
 
     if (!editor) return;
 
     switch (type) {
         case "heading":
             handleHeading(val, editor);
+            break;
+        case "image":
+            handleImage(val, editor)
+            break;
+        case "link":
+            handleLink(val, editor)
             break;
         default:
             return;
@@ -27,12 +35,9 @@ const onAction = (type, val, editor) => {
         elem: el
     }));
 
-    console.log("updated elements", updatedElements)
     useAdminStore.getState().setElements(updatedElements);
 
-    // Extract fresh content after action for preview
-    const extracted = extractItems(editor);
-    useAdminStore.getState().setItems(extracted);
+    updatePreview()
 };
 
 export default onAction;

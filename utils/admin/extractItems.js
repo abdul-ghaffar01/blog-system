@@ -1,6 +1,5 @@
 export default function extractItems(editor) {
   if (!editor) return [];
-
   const elements = Array.from(editor.children);
 
   const extracted = elements
@@ -12,7 +11,7 @@ export default function extractItems(editor) {
         return {
           type: "heading",
           level: Number(tag.replace("h", "")),
-          text: el.innerText,
+          text: el.innerHTML,
           styles,
         };
       }
@@ -69,7 +68,9 @@ export default function extractItems(editor) {
         return {
           type: "link",
           href: el.getAttribute("href"),
-          text: el.innerText,
+          text: el.innerHTML,
+          target: el.target,
+          rel: el.rel,
           styles,
         };
       }

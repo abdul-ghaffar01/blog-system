@@ -15,7 +15,7 @@ const ElementAccordion = ({ title, open, elementId, children }) => {
     };
 
     return (
-        <div className="border rounded mb-2">
+        <div className="border border-border rounded mb-2 transition duration-300">
             <button
                 onClick={handleToggle}
                 className="w-full flex justify-between items-center px-3 py-2 font-medium bg-surface hover:bg-surface-hover"
@@ -23,7 +23,7 @@ const ElementAccordion = ({ title, open, elementId, children }) => {
                 {title}
                 <span>{open ? "▲" : "▼"}</span>
             </button>
-            {open && <div className="p-3 bg-gray-50">{children}</div>}
+            {open && <div className="p-3 bg-background">{children}</div>}
         </div>
     );
 };
