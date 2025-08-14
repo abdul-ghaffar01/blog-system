@@ -30,7 +30,7 @@ const Code = ({ item }) => {
                 style={oneDark}
                 showLineNumbers
                 wrapLongLines
-                customStyle={{ margin: 0, borderRadius: "0.5rem", padding: "4px 10px 0 4px" }}
+                customStyle={{ margin: 0, borderRadius: "0.5rem" }}
             >
                 {item.code}
             </SyntaxHighlighter>
