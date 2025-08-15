@@ -19,6 +19,5 @@ export default function updateTagsPanel() {
 
     const updatedElements = Array.from(editor.children).map(getElementTree);
 
-    console.log("Elements tree", updatedElements)
     useAdminStore.getState().setElements(updatedElements);
 }

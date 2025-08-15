@@ -33,6 +33,11 @@ export default function Button({
             hover: "hover:bg-danger-hover",
             text: "text-white",
         },
+        secondary:{
+            bg: "bg-surface",
+            hover: "hover:opacity-90",
+            text: "text-white"
+        }
     };
 
     const current = variants[variant] || variants.primary;

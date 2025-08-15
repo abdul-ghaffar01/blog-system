@@ -24,7 +24,7 @@ const TagsSetting = () => {
 
   return (
     <div className="w-full h-full overflow-y-auto bg-background pb-25">
-      <h2 className="text-lg font-semibold p-2 bg-background">Elements</h2>
+      <h2 className="text-lg font-semibold p-2 bg-background select-none">Elements</h2>
       <div className="p-2">
         {renderElements(elements, selectedItem, setSelectedItem, refsMap, 0)}
       </div>

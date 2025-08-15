@@ -101,7 +101,7 @@ const Editor = () => {
 
     return (
         <div className="w-full h-full overflow-y-auto bg-background pb-25" onClick={() => { setSelectedItem(null) }}>
-            <h2 className="text-lg font-semibold bg-background p-2">Editor</h2>
+            <h2 className="text-lg font-semibold bg-background p-2 select-none">Editor</h2>
             <div
                 ref={editorRef}
                 id="editorPanel"

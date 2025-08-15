@@ -7,7 +7,7 @@ const Preview = () => {
 
   return (
     <div className="w-full h-full overflow-y-auto bg-background">
-      <h2 className="text-lg font-semibold p-2 bg-background">Preview</h2>
+      <h2 className="text-lg font-semibold p-2 bg-background select-none">Preview</h2>
       <div className="px-2">
         {constructBlog(items)}
       </div>

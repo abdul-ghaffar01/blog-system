@@ -126,6 +126,5 @@ export default function extractItems(editor) {
   }
 
   const extractedChildren = extractChildren(editor);
-  console.log("Extracted", extractedChildren)
   return extractedChildren;
 }

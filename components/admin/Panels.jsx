@@ -45,7 +45,7 @@ export default function ThreePanelLayout({ left, center, right }) {
     >
       {/* Left Panel */}
       <div
-        className="bg-background shadow-md overflow-auto"
+        className="bg-background shadow-md overflow-y-auto overflow-x-hidden"
         style={{ width: leftWidth }}
       >
         {left}
@@ -53,22 +53,22 @@ export default function ThreePanelLayout({ left, center, right }) {
 
       {/* Left Resizer */}
       <div
-        className="w-1 cursor-col-resize bg-border"
+        className={`w-1 cursor-col-resize ${isDraggingLeft ? "bg-foreground" : "bg-border"}`}
         onMouseDown={startDragLeft}
       />
 
       {/* Center Panel */}
-      <div className="flex-1 bg-background overflow-auto">{center}</div>
+      <div className="flex-1 bg-background overflow-y-auto overflow-x-hidden">{center}</div>
 
       {/* Right Resizer */}
       <div
-        className="w-1 cursor-col-resize bg-border"
+        className={`w-1 cursor-col-resize ${isDraggingRight ? "bg-foreground" : "bg-border"}`}
         onMouseDown={startDragRight}
       />
 
       {/* Right Panel */}
       <div
-        className="bg-background shadow-md overflow-auto"
+        className="bg-background shadow-md overflow-y-auto overflow-x-hidden"
         style={{ width: rightWidth }}
       >
         {right}

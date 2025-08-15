@@ -16,7 +16,7 @@ export default function ThemeToggle() {
     return (
         <button
             onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-            className="relative flex items-center justify-center w-10 h-10 rounded-full transition-colors bg-background"
+            className="relative flex items-center justify-center w-full h-full rounded-full transition-colors"
         >
             <AnimatePresence mode="wait" initial={false}>
                 {theme === "light" ? (

@@ -8,10 +8,6 @@ import updateTagsPanel from "@/utils/admin/updateTagsPanel";
 const ElementStyleControls = ({ el }) => {
   const [tailwindClass, setTailwindClass] = useState("");
 
-  useEffect(() => {
-    console.log("el", el)
-  }, [])
-
   const removeThisItem = () => {
     if (!el) return;
     el.elem.remove();
@@ -65,10 +61,10 @@ const ElementStyleControls = ({ el }) => {
           Remove
         </Button>
         <Button variant="secondary" onClick={moveUp} className="flex-none text-sm">
-          <ArrowUp size={16} />
+          <ArrowUp size={16} className="text-foreground" />
         </Button>
         <Button variant="secondary" onClick={moveDown} className="flex-none text-sm">
-          <ArrowDown size={16} />
+          <ArrowDown size={16} className="text-foreground" />
         </Button>
       </div>
 
