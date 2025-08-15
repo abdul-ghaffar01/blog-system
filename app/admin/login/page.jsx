@@ -1,38 +1,76 @@
 "use client";
 
-import React, { useState } from "react";
+import Button from "@/components/ui/Button";
+import useAdminStore from "@/stores/useAdminStore";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoadingForm, setIsLoadingForm] = useState("");
+  const router = useRouter()
+  const { loggedIn, setLoggedIn } = useAdminStore();
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    if (loggedIn) { router.push("/admin") }
+    // if token is available routing to admin regardless of damaged it will be checked on admin page 
+    if(localStorage.getItem("accessToken")) router.push("/admin")
+  }, [loggedIn, router])
+
+  useEffect(() => {
+    setTimeout(() => {
+      setError("")
+    }, 3000);
+  }, [error])
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Dummy validation
+    setIsLoadingForm(true)
+    // validation
     if (!email || !password) {
       setError("Please enter both email and password");
       return;
     }
 
-    // TODO: Add your login API call here
-    console.log({ email, password });
-    setError("");
+    try {
+      const resp = await fetch("/api/admin-login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const res = await resp.json();
+
+      if (!resp.ok) {
+        setError(res.error || "Invalid login");
+        return;
+      }
+
+      setLoggedIn(true)
+      localStorage.setItem("accessToken", res.accessToken)
+      router.push("/admin")
+    } catch (err) {
+      console.error("Login request failed", err);
+      setError("Something went wrong");
+    } finally {
+      setIsLoadingForm(false)
+    }
   };
 
   return (
     <div className="flex min-h-[100dvh] items-center justify-center bg-background p-4">
       <div className="w-full max-w-md bg-surface rounded-xl shadow-lg p-8">
-        <h2 className="text-2xl font-bold text-foreground mb-6 text-center">
+        <h2 className="text-2xl font-bold text-foreground text-center">
           Admin Login
         </h2>
 
-        {error && (
-          <div className="mb-4 text-red-600 border border-red-400 p-2 rounded">
-            {error}
-          </div>
-        )}
+
+        <div className="mb-4 text-red-600 h-[20px] text-center mt-2 rounded">
+          {error && error}
+        </div>
+
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -69,12 +107,13 @@ export default function AdminLogin() {
             />
           </div>
 
-          <button
+          <Button
+            loading={isLoadingForm}
             type="submit"
-            className="w-full py-2 px-4 rounded-lg bg-primary text-white font-semibold hover:bg-primary-hover transition"
+            className="w-full"
           >
             Login
-          </button>
+          </Button>
         </form>
       </div>
     </div>

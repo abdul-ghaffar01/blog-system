@@ -3,13 +3,16 @@
 import ElementAccordion from "../ui/admin/ElementAccordion";
 import ElementStyleControls from "../ui/admin/ElementStyleControls";
 
-const renderElements = (els, selectedItem, setSelectedItem, depth = 0) => {
+const renderElements = (els, selectedItem, setSelectedItem, refsMap, depth = 0) => {
 
 
     return els.map((el, index) => {
         return (
-            <div key={`${depth}-${index}`
-            } className="relative h-fit flex mt-2" >
+            <div key={`${depth}-${index}`}
+                ref={(node) => {
+                    if (node) refsMap.current[el.elem.id] = node;
+                }}
+                className="relative h-fit flex mt-2" >
 
                 {/* Vertical line */}
                 <div className={`${el.children && el.children.length > 0 ? "w-px" : "w-0"} bg-border mr-1`}></div>
@@ -34,7 +37,7 @@ const renderElements = (els, selectedItem, setSelectedItem, depth = 0) => {
                         {/* Render children inside this accordion, slightly indented */}
                         {el.children && el.children.length > 0 && (
                             <div className="mt-2">
-                                {renderElements(el.children, selectedItem, setSelectedItem, depth + 1)}
+                                {renderElements(el.children, selectedItem, setSelectedItem, refsMap, depth + 1)}
                             </div>
                         )}
                     </div>
