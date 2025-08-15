@@ -7,7 +7,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 export async function POST(request) {
   try {
     const authHeader = request.headers.get("Authorization");
-
+    console.log("Auth token", authHeader)
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return NextResponse.json({ error: "No token provided" }, { status: 400 });
     }
@@ -19,10 +19,12 @@ export async function POST(request) {
 
       // Token is valid, issue a new access token
       const newAccessToken = jwt.sign(
-        { id: decoded.id, email: decoded.email },
+        { email: decoded.email },
         JWT_SECRET,
         { expiresIn: "15m" }
       );
+
+      console.log(newAccessToken)
 
       return NextResponse.json({ accessToken: newAccessToken });
     } catch (err) {

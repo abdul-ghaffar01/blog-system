@@ -26,8 +26,15 @@ const ProtectedRoute = ({ children }) => {
             Authorization: `Bearer ${storedToken}`,
           },
         });
-
+        if (!res.ok) {
+          localStorage.removeItem("accessToken")
+          setLoggedIn(false);
+          router.push("/admin/login")
+          return;
+        }
         const data = await res.json();
+
+        console.log(data)
 
         localStorage.setItem("accessToken", data.accessToken);
         setLoggedIn(true);
