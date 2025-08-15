@@ -1,10 +1,7 @@
 import useAdminStore from "@/stores/useAdminStore";
 
-export default function updateTagsPanel() {
-    const editor = useAdminStore.getState().editor
-
-    // After action, update store with current editor elements
-    const updatedElements = Array.from(editor.querySelectorAll("*")).map((el) => ({
+function getElementTree(el) {
+    return {
         tag: el.tagName.toLowerCase(),
         styles: {
             color: el.style.color || "",
@@ -12,8 +9,16 @@ export default function updateTagsPanel() {
             backgroundColor: el.style.backgroundColor || ""
         },
         content: el.innerText,
-        elem: el
-    }));
+        elem: el,
+        children: Array.from(el.children).map(getElementTree) // recursive call for children
+    };
+}
 
+export default function updateTagsPanel() {
+    const editor = useAdminStore.getState().editor;
+
+    const updatedElements = Array.from(editor.children).map(getElementTree);
+
+    console.log("Elements tree", updatedElements)
     useAdminStore.getState().setElements(updatedElements);
 }

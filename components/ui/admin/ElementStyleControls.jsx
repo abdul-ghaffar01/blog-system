@@ -1,15 +1,16 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { X, ArrowUp, ArrowDown } from "lucide-react";
-import useAdminStore from "@/stores/useAdminStore";
 import Button from "../Button";
 import updatePreview from "@/utils/admin/updatePreview";
 import updateTagsPanel from "@/utils/admin/updateTagsPanel";
 
-const ElementStyleControls = ({ elementIndex }) => {
+const ElementStyleControls = ({ el }) => {
   const [tailwindClass, setTailwindClass] = useState("");
-  const { elements } = useAdminStore();
-  const el = elements[elementIndex];
+
+  useEffect(() => {
+    console.log("el", el)
+  }, [])
 
   const removeThisItem = () => {
     if (!el) return;
@@ -88,18 +89,23 @@ const ElementStyleControls = ({ elementIndex }) => {
 
       {/* Existing classes */}
       <div className="flex flex-wrap gap-2 mt-2">
-        {[...el.elem.classList].map((cls) => (
-          <div
-            key={cls}
-            className="flex items-center gap-1 bg-surface border border-border px-2 py-1 rounded"
-          >
-            <span className="text-sm text-foreground">{cls}</span>
-            <button onClick={() => removeClass(cls)} type="button">
-              <X size={14} className="text-danger hover:text-danger-hover" />
-            </button>
-          </div>
-        ))}
+        {el?.elem ? (
+          [...el.elem.classList].map((cls) => (
+            <div
+              key={cls}
+              className="flex items-center gap-1 bg-surface border border-border px-2 py-1 rounded"
+            >
+              <span className="text-sm text-foreground">{cls}</span>
+              <button onClick={() => removeClass(cls)} type="button">
+                <X size={14} className="text-danger hover:text-danger-hover" />
+              </button>
+            </div>
+          ))
+        ) : (
+          <span className="text-xs text-muted">No classes</span>
+        )}
       </div>
+
     </div>
   );
 };

@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react";
 import { Bold, Italic, Underline, Code } from "lucide-react";
 import onAction from "@/utils/admin/onAction";
 import useAdminStore from "@/stores/useAdminStore";
-import updatePreview from "@/utils/admin/updatePreview";
 import Modal from "@/components/ui/Modal";
+import uniqueId from "@/utils/uniqueId";
+import updatePanels from "@/utils/admin/updatePanels";
 
 export default function FormattingButtons() {
   const { selectedItem } = useAdminStore();
@@ -31,7 +32,7 @@ export default function FormattingButtons() {
         e.preventDefault();
         makeUnderline();
       }
-      updatePreview();
+      updatePanels()
     };
 
     document.addEventListener("keydown", handleKeyDown);
@@ -45,6 +46,7 @@ export default function FormattingButtons() {
     const range = selection.getRangeAt(0);
     const strong = document.createElement("strong");
 
+    strong.id = uniqueId()
     // Wrap selected text in <strong>
     strong.appendChild(range.extractContents());
     range.insertNode(strong);
@@ -59,6 +61,8 @@ export default function FormattingButtons() {
 
     selection.removeAllRanges();
     selection.addRange(range);
+
+    updatePanels();
   };
   const makeItalic = () => {
     const selection = window.getSelection();
@@ -67,6 +71,8 @@ export default function FormattingButtons() {
     const range = selection.getRangeAt(0);
     const em = document.createElement("em");
 
+    em.id = uniqueId();
+    console.log("em id", em.id)
     em.appendChild(range.extractContents());
     range.insertNode(em);
 
@@ -80,6 +86,7 @@ export default function FormattingButtons() {
 
     selection.removeAllRanges();
     selection.addRange(range);
+    updatePanels()
   };
 
   const makeUnderline = () => {
@@ -89,6 +96,7 @@ export default function FormattingButtons() {
     const range = selection.getRangeAt(0);
     const u = document.createElement("u");
 
+    u.id = uniqueId();
     u.appendChild(range.extractContents());
     range.insertNode(u);
 
@@ -102,6 +110,7 @@ export default function FormattingButtons() {
 
     selection.removeAllRanges();
     selection.addRange(range);
+    updatePanels();
   };
 
   const handleCode = () => {
