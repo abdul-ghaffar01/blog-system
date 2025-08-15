@@ -1,9 +1,10 @@
+import readChildren from '@/utils/readChildren';
 import React from 'react'
 
 const Quote = ({ item }) => {
     return (
         <blockquote className={item.styles?.join(" ")}>
-            “{item.text}”
+            “{readChildren(item.children)}”
             {item.author && (
                 <footer className="mt-2">— {item.author}</footer>
             )}

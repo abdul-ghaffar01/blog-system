@@ -1,12 +1,12 @@
 import readChildren from '@/utils/readChildren';
 import React from 'react'
 
-const Paragraph = ({item}) => {
-  return (
-        <p className={item.styles?.join(" ")}>
+const Italic = ({ item }) => {
+    return (
+        <em className={item.styles?.join(" ")}>
             {readChildren(item.children)}
-        </p>
+        </em>
     );
 }
 
-export default Paragraph
+export default Italic

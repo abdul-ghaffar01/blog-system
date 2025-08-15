@@ -1,12 +1,12 @@
 import readChildren from '@/utils/readChildren';
 import React from 'react'
 
-const Paragraph = ({item}) => {
+const Bold = ({item}) => {
   return (
-        <p className={item.styles?.join(" ")}>
+        <b className={item.styles?.join(" ")}>
             {readChildren(item.children)}
-        </p>
+        </b>
     );
 }
 
-export default Paragraph
+export default Bold

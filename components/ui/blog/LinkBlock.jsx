@@ -1,4 +1,5 @@
 "use client"
+import readChildren from '@/utils/readChildren';
 import Link from 'next/link';
 import React, { useEffect, useRef } from 'react'
 
@@ -10,7 +11,7 @@ const LinkBlock = ({ item }) => {
     }, [item.text])
     return (
         <Link ref={linkRef} href={item.href} target={item.target} className={item.styles?.join(" ")}>
-            {item.text}
+            {readChildren(item.children)}
         </Link>
     );
 }
