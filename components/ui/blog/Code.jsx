@@ -16,7 +16,7 @@ const Code = ({ item }) => {
         setCopied(true);
         setTimeout(() => setCopied(false), 2000); // reset after 2 seconds
     };
-    
+
     return (
         <div className="relative my-4 rounded-lg overflow-hidden shadow">
             <button
@@ -33,7 +33,7 @@ const Code = ({ item }) => {
                 wrapLongLines
                 customStyle={{ margin: 0, borderRadius: "0.5rem" }}
             >
-                {readChildren(item.children)}
+                {item.code}
             </SyntaxHighlighter>
         </div>
     );
