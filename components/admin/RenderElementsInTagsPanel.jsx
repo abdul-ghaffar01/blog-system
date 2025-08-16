@@ -12,7 +12,7 @@ const renderElements = (els, selectedItem, setSelectedItem, refsMap, depth = 0) 
                 ref={(node) => {
                     if (node) refsMap.current[el.elem.id] = node;
                 }}
-                className="relative h-fit flex mt-2" >
+                className=" h-fit flex mt-2" >
 
                 {/* Vertical line */}
                 <div className={`${el.children && el.children.length > 0 ? "w-px" : "w-0"} bg-border mr-1`}></div>

@@ -49,7 +49,7 @@ export default function ActionsDropdown() {
       </button>
 
       {open && (
-        <ul className="absolute right-0 mt-2 w-44 bg-background border border-border rounded shadow-md z-50">
+        <ul className="absolute right-0 mt-2 w-44 bg-background border border-border rounded shadow-md z-[99] ">
           <li
             onClick={toggleTheme}
             className="flex items-center gap-2 px-4 py-2 hover:bg-surface cursor-pointer"

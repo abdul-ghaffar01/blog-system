@@ -42,7 +42,7 @@ export default function Button({
 
     const current = variants[variant] || variants.primary;
     const disabledStyles =
-        "opacity-50 cursor-not-allowed bg-gray-300 dark:bg-gray-700 border border-gray-300 dark:border-gray-700 hover:bg-gray-300 dark:hover:bg-gray-700";
+        "opacity-50 cursor-not-allowed bg-gray-300 border border-gray-300 hover:bg-gray-300 ";
 
 
     return (
@@ -50,7 +50,7 @@ export default function Button({
             onClick={onClick}
             disabled={disabled || loading}
             className={clsx(
-                "relative flex items-center justify-center px-4 py-2 rounded-lg font-medium transition-all duration-200",
+                "flex items-center justify-center px-4 py-2 rounded-lg font-medium transition-all duration-200",
                 current.bg,
                 current.hover,
                 current.text,
