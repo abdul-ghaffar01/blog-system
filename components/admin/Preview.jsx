@@ -18,7 +18,7 @@ const Preview = () => {
         <div className="flex gap-2">
           {previewLoading && <Loader />}
           <button title="Reload" onClick={refreshPreview}>
-            <RefreshCcw size={20} className="text-muted hover:text-foreground" />
+            <RefreshCcw size={16} className="text-muted hover:text-foreground" />
           </button>
 
         </div>

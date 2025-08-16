@@ -5,6 +5,7 @@ import RemoveUpDownBtns from "./element-controls/RemoveUpDownBtns";
 import Alignment from "./element-controls/Alignment"; // I added since you referenced it
 import SearchBox from "./element-controls/SearchBox";
 import Attributes from "./element-controls/Attributes";
+import ElementStyles from "./element-controls/ElementStyles";
 
 const ElementStyleControls = ({ el }) => {
   const [query, setQuery] = useState("");
@@ -15,6 +16,7 @@ const ElementStyleControls = ({ el }) => {
     { name: "add classes", component: <AddClasses el={el} /> },
     { name: "alignment", component: <Alignment el={el} /> },
     { name: "attributes", component: <Attributes el={el} /> },
+    { name: "styles", component: <ElementStyles el={el} /> },
   ];
 
   // filter based on query

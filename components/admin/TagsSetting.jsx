@@ -36,7 +36,7 @@ const TagsSetting = () => {
         <div className="flex gap-2">
           {elementsLoading && <Loader />}
           <button title="Reload" onClick={refreshElements}>
-            <RefreshCcw size={20} className="text-muted hover:text-foreground" />
+            <RefreshCcw size={16} className="text-muted hover:text-foreground" />
           </button>
 
         </div>
