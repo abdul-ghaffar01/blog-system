@@ -7,7 +7,12 @@ const useAdminStore = create((set) => ({
   elements: [],
   items: [],
   selectedItem: null,
+  previewLoading: false,
+  elementsLoading: false,
 
+  
+  setPreviewLoading: (isLoading => set({ previewLoading: isLoading })),
+  setElementsLoading: (isLoading => set({ elementsLoading: isLoading })),
   setLoggedIn: (isLoggedIn => set({ loggedIn: isLoggedIn })),
   setLoggedIn: (isLoggedOut => set({ loggedOut: isLoggedOut })),
   setSelectedItem: (newItem => set({ selectedItem: newItem })),

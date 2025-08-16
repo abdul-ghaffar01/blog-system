@@ -3,11 +3,6 @@
 @theme {
   --dark-mode: class;
 }
-@import "tailwindcss";
-
-@theme {
-  --dark-mode: class;
-}
 
 :root {
   /* Grays */
@@ -105,4 +100,8 @@ body {
 * {
   scrollbar-width: thin;
   scrollbar-color: var(--primary) var(--background);
+}
+
+.text-justify {
+  text-align: justify;
 }

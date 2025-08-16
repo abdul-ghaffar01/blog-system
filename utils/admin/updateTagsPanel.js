@@ -16,8 +16,11 @@ function getElementTree(el) {
 
 export default function updateTagsPanel() {
     const editor = useAdminStore.getState().editor;
-
+    const setElementsLoading = useAdminStore.getState().setElementsLoading;
+    setElementsLoading(true)
     const updatedElements = Array.from(editor.children).map(getElementTree);
 
     useAdminStore.getState().setElements(updatedElements);
+
+    setElementsLoading(false)
 }
