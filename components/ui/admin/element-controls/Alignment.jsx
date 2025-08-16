@@ -44,26 +44,26 @@ const Alignment = ({ el }) => {
             <div className="flex gap-2">
                 <button
                     onClick={() => setAlignment("left")}
-                    className="p-2 rounded bg-surface hover:opacity-70"
+                    className="p-2 rounded bg-background hover:opacity-70"
                 >
                     <AlignLeft size={16} />
                 </button>
                 <button
                     onClick={() => setAlignment("center")}
-                    className="p-2 rounded bg-surface hover:opacity-70"
+                    className="p-2 rounded bg-background hover:opacity-70"
                 >
                     <AlignCenter size={16} />
                 </button>
                 <button
                     onClick={() => setAlignment("right")}
-                    className="p-2 rounded bg-surface hover:opacity-70"
+                    className="p-2 rounded bg-background hover:opacity-70"
                 >
                     <AlignRight size={16} />
                 </button>
                 {!isImage && (
                     <button
                         onClick={() => setAlignment("justify")}
-                        className="p-2 rounded bg-surface hover:opacity-70"
+                        className="p-2 rounded bg-background hover:opacity-70"
                     >
                         <AlignJustify size={16} />
                     </button>

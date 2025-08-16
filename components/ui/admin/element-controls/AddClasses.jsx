@@ -31,11 +31,11 @@ const AddClasses = ({ el }) => {
         <div className='flex flex-col'>
 
             {/* Add new class */}
-            <div className="mt-3">
-                <h1 className="text-muted text-sm mb-1">Add classes</h1>
+            <div className="">
+                <h1 className="text-muted text-sm">Add classes</h1>
                 <form onSubmit={addClass} className="flex gap-2">
                     <input
-                        className="p-2 border-border bg-surface w-full rounded text-sm outline-none"
+                        className="p-2 border-border bg-background w-full rounded text-sm outline-none"
                         onChange={(e) => setTailwindClass(e.target.value)}
                         value={tailwindClass}
                         type="text"
@@ -51,7 +51,7 @@ const AddClasses = ({ el }) => {
                     [...el.elem.classList].map((cls) => (
                         <div
                             key={cls}
-                            className="flex items-center gap-1 bg-surface border border-border px-2 py-1 rounded"
+                            className="flex items-center gap-1 bg-background border border-border px-2 py-1 rounded"
                         >
                             <span className="text-sm text-foreground">{cls}</span>
                             <button onClick={() => removeClass(cls)} type="button">

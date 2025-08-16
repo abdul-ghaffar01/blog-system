@@ -5,8 +5,9 @@ export default function readChildren(children, returnTag) {
     return children.map((child, index) => {
         if (typeof child === "string") {
             return <Tag key={index}>{child}</Tag>
+            // return child;
         } else {
-            return <Tag key={child.id || index}>{getItem(child)}</Tag>
+            return <Tag key={child.id}>{getItem(child)}</Tag>
         }
     })
 }

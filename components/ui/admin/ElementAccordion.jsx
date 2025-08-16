@@ -18,7 +18,7 @@ const ElementAccordion = ({ title, open, elementId, children }) => {
         <div className="border border-border w-full ">
             <button
                 onClick={handleToggle}
-                className="w-full flex justify-between items-center px-3 py-2 font-medium bg-surface hover:bg-surface-hover"
+                className="w-full flex justify-between items-center px-3 py-2 font-medium bg-surface "
             >
                 {title}
                 <span>{open ? "▲" : "▼"}</span>

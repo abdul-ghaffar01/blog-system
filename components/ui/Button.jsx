@@ -34,7 +34,7 @@ export default function Button({
             text: "text-white",
         },
         secondary:{
-            bg: "bg-surface",
+            bg: "bg-background",
             hover: "hover:opacity-90",
             text: "text-white"
         }

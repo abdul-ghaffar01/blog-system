@@ -12,7 +12,7 @@ const SearchBox = ({ query, setQuery }) => {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search..."
-        className="w-full pl-2 pr-10 py-2 rounded-md outline-none bg-surface text-foreground placeholder-muted-foreground transition"
+        className="w-full pl-2 pr-10 py-2 rounded-md outline-none bg-background text-foreground placeholder-muted transition"
       />
 
     </div>

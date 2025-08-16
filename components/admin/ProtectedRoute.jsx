@@ -33,9 +33,6 @@ const ProtectedRoute = ({ children }) => {
           return;
         }
         const data = await res.json();
-
-        console.log(data)
-
         localStorage.setItem("accessToken", data.accessToken);
         setLoggedIn(true);
       } catch (error) {
@@ -54,9 +51,6 @@ const ProtectedRoute = ({ children }) => {
   if (verifying) {
     return <div className="flex flex-col justify-center items-center h-screen gap-3">
       <Loader />
-      <p className="text-muted ">
-        Verifying credentials...
-      </p>
     </div>;
   }
 
