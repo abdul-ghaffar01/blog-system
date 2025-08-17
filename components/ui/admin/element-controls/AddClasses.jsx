@@ -32,7 +32,7 @@ const AddClasses = ({ el }) => {
 
             {/* Add new class */}
             <div className="">
-                <h1 className="text-muted text-sm">Add classes</h1>
+                <h1 className="text-muted text-sm mb-1">Add Classes</h1>
                 <form onSubmit={addClass} className="flex gap-2">
                     <input
                         className="p-2 border-border bg-background w-full rounded text-sm outline-none"

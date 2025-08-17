@@ -18,7 +18,7 @@ export default function HeadingSelector() {
         <select
             value={headingLevel}
             onChange={handleHeadingChange}
-            className="border rounded px-2 py-1 bg-background text-foreground"
+            className="border border-border outline-none rounded p-2 bg-background text-foreground"
         >
             <option value="heading">Heading</option>
             <option value="h1">H1</option>

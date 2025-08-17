@@ -6,6 +6,11 @@ import Alignment from "./element-controls/Alignment"; // I added since you refer
 import SearchBox from "./element-controls/SearchBox";
 import Attributes from "./element-controls/Attributes";
 import ElementStyles from "./element-controls/ElementStyles";
+import Color from "./element-controls/Color";
+import Background from "./element-controls/Background";
+import Padding from "./element-controls/Padding";
+import Margin from "./element-controls/Margin";
+import BorderRadius from "./element-controls/BorderRadius";
 
 const ElementStyleControls = ({ el }) => {
   const [query, setQuery] = useState("");
@@ -16,7 +21,11 @@ const ElementStyleControls = ({ el }) => {
     { name: "add classes", component: <AddClasses el={el} /> },
     { name: "alignment", component: <Alignment el={el} /> },
     { name: "attributes", component: <Attributes el={el} /> },
-    { name: "styles", component: <ElementStyles el={el} /> },
+    { name: "color", component: <Color /> },
+    { name: "background color", component: <Background /> },
+    { name: "padding", component: <Padding /> },
+    { name: "margin", component: <Margin /> },
+    { name: "border radius", component: <BorderRadius /> },
   ];
 
   // filter based on query
@@ -35,7 +44,7 @@ const ElementStyleControls = ({ el }) => {
           filteredControls.map((c, i) => (
             <div key={i} >
               {c.component}
-              <hr className="text-border my-3"/>
+              <hr className="text-border my-3" />
             </div>
           ))
         ) : (
