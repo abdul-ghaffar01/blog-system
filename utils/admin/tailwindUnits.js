@@ -6,6 +6,7 @@ export const colorOptions = [
   { name: "Foreground", var: "foreground" },
   { name: "Surface", var: "surface" },
   { name: "Primary", var: "primary" },
+  { name: "muted", var: "muted" },
   { name: "Success", var: "success" },
   { name: "Success Hover", var: "success-hover" },
   { name: "Warning", var: "warning" },
