@@ -5,6 +5,8 @@ import updatePreview from "./updatePreview";
 import handleLink from "./handleLink";
 import handleCode from "./handleCode";
 import updateTagsPanel from "./updateTagsPanel";
+import handleList from "./handleList";
+import handleTable from "./handleTable";
 
 const onAction = (type, val) => {
     const editor = useAdminStore.getState().editor
@@ -23,6 +25,12 @@ const onAction = (type, val) => {
             break;
         case "code":
             handleCode(val, editor)
+            break;
+        case "list":
+            handleList(val, editor)
+            break;
+        case "table":
+            handleTable(val, editor)
             break;
         default:
             return;

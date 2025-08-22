@@ -8,6 +8,7 @@ import ListButtons from "./header/ListButtons";
 import AlignButtons from "./header/AlignButtons";
 import Actions from "./header/Actions";
 import Menu from "./header/Menu";
+import TableButtons from "./header/TableButtons";
 
 export default function AdminHeader() {
 
@@ -25,6 +26,7 @@ export default function AdminHeader() {
           <MediaButtons />
           <ListButtons />
           <AlignButtons />
+          <TableButtons />
         </div>
 
         {/* Right section */}

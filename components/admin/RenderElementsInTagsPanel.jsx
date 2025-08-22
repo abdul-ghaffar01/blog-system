@@ -33,8 +33,6 @@ const renderElements = (els, selectedItem, setSelectedItem, refsMap, depth = 0) 
 
                     {/* children */}
                     <div className="ml-2">
-                        {/* <h3 className="text-muted text-sm">Children</h3> */}
-                        {/* Render children inside this accordion, slightly indented */}
                         {el.children && el.children.length > 0 && (
                             <div className="mt-2">
                                 {renderElements(el.children, selectedItem, setSelectedItem, refsMap, depth + 1)}
