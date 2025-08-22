@@ -28,7 +28,7 @@ export default function handleTable(val, editor) {
             "</tr>";
     }
 
-    const tag = `<table id="${tableId}" border="1" cellspacing="0" cellpadding="4">${headerRow}${bodyRows}</table>`;
+    const tag = `<table id="${tableId}" cellspacing="0" cellpadding="4">${headerRow}${bodyRows}</table>`;
 
     console.log(tag);
     editor.innerHTML += tag;

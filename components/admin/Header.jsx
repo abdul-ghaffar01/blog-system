@@ -4,11 +4,11 @@ import useAdminStore from "@/stores/useAdminStore";
 import HeadingSelector from "./header/HeadingSelector";
 import FormattingButtons from "./header/FormattingButtons";
 import MediaButtons from "./header/MediaButtons";
-import ListButtons from "./header/ListButtons";
 import AlignButtons from "./header/AlignButtons";
 import Actions from "./header/Actions";
 import Menu from "./header/Menu";
 import TableButtons from "./header/TableButtons";
+import ListButtons from "./header/ListButtons";
 
 export default function AdminHeader() {
 
@@ -27,6 +27,7 @@ export default function AdminHeader() {
           <ListButtons />
           <AlignButtons />
           <TableButtons />
+          <ListButtons />
         </div>
 
         {/* Right section */}

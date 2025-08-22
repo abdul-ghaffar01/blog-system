@@ -118,3 +118,8 @@ body {
 .text-justify {
   text-align: justify;
 }
+
+
+td, th{
+  border: 1px solid var(--foreground)
+}

@@ -68,7 +68,7 @@ export default function extractItems(editor) {
       return {
         ...typeInfo,
         styles,
-        items: Array.from(el.querySelectorAll(":scope > li")).map(li => extractInlineContent(li))
+        children: Array.from(el.querySelectorAll(":scope > li")).map(li => extractInlineContent(li))
       };
     }
     if (typeInfo.type === "link") {
@@ -126,5 +126,6 @@ export default function extractItems(editor) {
   }
 
   const extractedChildren = extractChildren(editor);
+  console.log(extractedChildren)
   return extractedChildren;
 }
