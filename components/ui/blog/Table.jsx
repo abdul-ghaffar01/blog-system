@@ -1,20 +1,21 @@
 import React from "react";
 
 export default function Table({ item }) {
+  console.log(item)
   if (!item || !item.headers || !item.rows) {
     return null;
   }
 
   return (
     <div className={`overflow-auto shadow ${item.styles?.join(" ")}`}>
-      <table className="min-w-full border-collapse" style={{ border: `1px solid var(--color-border)` }}>
+      <table className="min-w-full border-collapse" style={{ border: `1px solid var(--border)` }}>
         <thead>
           <tr>
             {item.headers.map((header, idx) => (
               <th
                 key={idx}
                 className="text-left px-2 py-2"
-                style={{ color: "var(--color-foreground)", border: `1px solid var(--color-border)` }}
+                style={{ color: "var(--foreground)", border: `1px solid var(--border)` }}
               >
                 {header}
               </th>
@@ -28,7 +29,7 @@ export default function Table({ item }) {
                 <td
                   key={cellIdx}
                   className="px-2 py-2"
-                  style={{ color: "var(--color-muted)", border: `1px solid var(--color-border)` }}
+                  style={{ color: "var(--muted)", border: `1px solid var(--border)` }}
                 >
                   {cell}
                 </td>

@@ -119,7 +119,12 @@ body {
   text-align: justify;
 }
 
+table {
+  border-collapse: collapse; /* removes double borders */
+  width: 100%;
+}
 
-td, th{
-  border: 1px solid var(--foreground)
+td, th {
+  border: 1px solid var(--foreground);
+  padding: 4px;
 }
