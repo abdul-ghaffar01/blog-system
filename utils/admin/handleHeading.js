@@ -1,7 +1,8 @@
 import uniqueId from "../uniqueId";
+import { insertAtCursor } from "./insertAtCursor";
 
-export default function handleHeading(val, editor) {
+export default function handleHeading(val) {
     const tag = `<${val} id="${uniqueId()}">Type something here...</${val}>`
-    editor.innerHTML += tag;
+    insertAtCursor(tag)
 
 }

@@ -5,7 +5,7 @@ const List = ({ item }) => {
     const ListTag = item.list_type === "ordered" ? "ol" : "ul";
 
     // Base classes
-    const baseClasses = "list-inside space-y-2 text-foreground";
+    const baseClasses = "list-outside space-y-2 text-foreground";
 
     // Default list style depending on type
     const defaultListClass = ListTag === "ol" ? "list-decimal" : "list-disc";
