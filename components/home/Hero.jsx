@@ -27,10 +27,10 @@ export default function Hero() {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="relative hidden w-24 h-[200%] md:flex items-center justify-center">
         {/* Red angled bar */}
-        <div className="absolute bg-background rotate-[8deg] origin-center w-24 h-[200%]"></div>
+        <div className="absolute bg-background rotate-[12deg] origin-center w-24 h-[200%]"></div>
 
         {/* Blue angled bar */}
-        <div className="absolute bg-background rotate-[-8deg] origin-center w-24 h-[200%]"></div>
+        <div className="absolute bg-background rotate-[-12deg] origin-center w-24 h-[200%]"></div>
       </motion.div>
 
 
