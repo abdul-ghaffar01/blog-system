@@ -1,12 +1,13 @@
 import React from 'react'
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { Eye } from 'lucide-react';
 const BlogCard = ({ blog, idx }) => {
     return (
         <motion.div
             key={blog.id}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1}}
             transition={{ duration: 0.5, delay: idx * 0.15 }}
             viewport={{ once: true }}
             className="px-3"
@@ -41,7 +42,7 @@ const BlogCard = ({ blog, idx }) => {
                         style={{ color: "var(--muted)" }}
                     >
                         <span>{blog.date}</span>
-                        <span>{blog.views} views</span>
+                        <span className='flex text-xs items-center gap-1'><Eye size={16} color="currentColor" /> {blog.views} </span>
                     </div>
                 </div>
             </div>
