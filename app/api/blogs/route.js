@@ -3,21 +3,39 @@ import { connectDB } from "@/lib/db";
 import Blog from "@/models/Blog";
 
 export async function GET(req) {
-    try {
-        await connectDB();
+  try {
+    await connectDB();
 
-        // exclude `content` field
-        const blogs = await Blog.find({}, { content: 0 }).sort({ createdAt: -1 });
+    // Parse query params (page & limit)
+    const { searchParams } = new URL(req.url);
+    const page = parseInt(searchParams.get("page")) || 1;
+    const limit = parseInt(searchParams.get("limit")) || 6;
 
-        return new Response(JSON.stringify(blogs), {
-            status: 200,
-            headers: { "Content-Type": "application/json" },
-        });
-    } catch (error) {
-        console.error(error);
-        return new Response(
-            JSON.stringify({ message: "Failed to fetch blogs" }),
-            { status: 500 }
-        );
-    }
+    const skip = (page - 1) * limit;
+
+    // total count
+    const total = await Blog.countDocuments();
+
+    // fetch blogs (exclude `content`)
+    const blogs = await Blog.find({}, { content: 0 })
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    const hasMore = page * limit < total;
+
+    return new Response(
+      JSON.stringify({ blogs, hasMore, total }),
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  } catch (error) {
+    console.error("Error fetching blogs:", error);
+    return new Response(
+      JSON.stringify({ message: "Failed to fetch blogs" }),
+      { status: 500 }
+    );
+  }
 }
