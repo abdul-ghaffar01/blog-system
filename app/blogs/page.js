@@ -25,12 +25,14 @@ const Page = () => {
       try {
         const res = await fetch(`/api/blogs?page=${page}&limit=6`);
         const data = await res.json();
+
         if (page === 1) {
           setBlogs(data.blogs);
-          setFeatured(data.blogs[0]);
+          setFeatured(data.blogs.find((b) => b.isFeatured) || data.blogs[0]);
         } else {
           setBlogs((prev) => [...prev, ...data.blogs]);
         }
+
         setHasMore(data.hasMore);
       } catch (err) {
         console.error("Failed to fetch blogs", err);
@@ -79,8 +81,8 @@ const Page = () => {
           style={{ background: "var(--surface)" }}
         >
           <img
-            src={featured.image}
-            alt={featured.title}
+            src={featured.coverImage}
+            alt={featured.metaTitle || featured.title}
             className="w-full h-[400px] object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
@@ -90,6 +92,13 @@ const Page = () => {
             </span>
             <h2 className="mt-2 text-4xl font-bold">{featured.title}</h2>
             <p className="mt-3 text-gray-200">{featured.excerpt}</p>
+
+            {/* Stats */}
+            <div className="flex items-center gap-6 mt-3 text-sm text-gray-300">
+              <span>👁 {featured.views} views</span>
+              <span>❤️ {featured.likes} likes</span>
+            </div>
+
             <a
               href={`/blogs/${featured.slug}`}
               className="inline-block mt-5 px-4 py-2 bg-[var(--primary)] rounded-lg font-medium hover:bg-[var(--primary-hover)] transition"

@@ -12,6 +12,7 @@ export async function GET(req) {
     const limit = parseInt(searchParams.get("limit")) || 6;
 
     const skip = (page - 1) * limit;
+    console.log({ page, limit, skip });
 
     // total count
     const total = await Blog.countDocuments();
@@ -21,7 +22,7 @@ export async function GET(req) {
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit);
-
+    console.log(blogs);
     const hasMore = page * limit < total;
 
     return new Response(
