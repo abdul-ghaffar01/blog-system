@@ -2,7 +2,9 @@
 
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Search, Tag, Clock, Filter } from "lucide-react";
+import { Filter } from "lucide-react";
+import BlogCard from "@/components/ui/BlogCard";
+import BlogsSkeleton from "@/components/ui/skeletons/BlogsSkeleton";
 
 const Page = () => {
   const [blogs, setBlogs] = useState([]);
@@ -59,6 +61,10 @@ const Page = () => {
     filtered = [...filtered].sort((a, b) => (b.views || 0) - (a.views || 0));
   }
 
+  if (loading && blogs.length === 0) {
+    return <BlogsSkeleton />;
+  }
+
   return (
     <main
       className="max-w-7xl mx-auto px-6 py-12 space-y-12"
@@ -93,12 +99,12 @@ const Page = () => {
           </div>
         </motion.section>
       )}
-      <div className="flex flex-col lg:flex-row gap-6">
 
+      <div className="flex flex-col lg:flex-row gap-6">
         {/* Sidebar Filters */}
         <aside
           className="w-full lg:w-64 flex-shrink-0 rounded-xl border bg-[var(--surface)] shadow-sm p-4 lg:p-5 h-fit 
-             lg:sticky lg:top-5"
+             lg:sticky lg:top-17"
           style={{ borderColor: "var(--border)" }}
         >
           {/* Categories */}
@@ -143,55 +149,11 @@ const Page = () => {
         {/* Blog Grid */}
         <div className="flex-1">
           <motion.div layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {loading && blogs.length === 0
-              ? Array.from({ length: 6 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="h-60 rounded-xl animate-pulse"
-                  style={{ background: "var(--surface)" }}
-                ></div>
-              ))
-              : filtered
-                .filter((b) => b._id !== featured?._id)
-                .map((blog, i) => (
-                  <motion.article
-                    key={blog._id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.05 }}
-                    className="group rounded-2xl overflow-hidden shadow border flex flex-col"
-                    style={{ borderColor: "var(--border)", background: "var(--surface)" }}
-                  >
-                    {blog.image && (
-                      <div className="overflow-hidden">
-                        <img
-                          src={blog.image}
-                          alt={blog.title}
-                          className="w-full h-44 object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                      </div>
-                    )}
-                    <div className="p-5 flex flex-col flex-1">
-                      <div className="flex items-center gap-2 text-xs text-[var(--muted)]">
-                        <Tag className="w-3 h-3" /> {blog.category}
-                        <Clock className="w-3 h-3 ml-3" />{" "}
-                        {new Date(blog.createdAt).toLocaleDateString()}
-                      </div>
-                      <h2 className="mt-2 text-lg font-bold group-hover:text-[var(--primary)] transition-colors">
-                        {blog.title}
-                      </h2>
-                      <p className="text-sm text-[var(--muted)] mt-3 line-clamp-3 flex-1">
-                        {blog.excerpt}
-                      </p>
-                      <a
-                        href={`/blogs/${blog.slug}`}
-                        className="inline-block mt-4 text-sm font-semibold text-[var(--primary)] hover:text-[var(--primary-hover)]"
-                      >
-                        Continue Reading →
-                      </a>
-                    </div>
-                  </motion.article>
-                ))}
+            {filtered
+              .filter((b) => b._id !== featured?._id)
+              .map((blog, i) => (
+                <BlogCard key={blog._id} blog={blog} idx={i} />
+              ))}
           </motion.div>
 
           {/* See More */}
@@ -207,7 +169,6 @@ const Page = () => {
           )}
         </div>
       </div>
-
     </main>
   );
 };
