@@ -36,7 +36,7 @@ export default function Button({
         secondary:{
             bg: "bg-background",
             hover: "hover:opacity-90",
-            text: "text-white"
+            text: "text-foreground"
         }
     };
 
@@ -50,7 +50,7 @@ export default function Button({
             onClick={onClick}
             disabled={disabled || loading}
             className={clsx(
-                "flex items-center justify-center px-4 py-2 rounded-lg font-medium transition-all duration-200",
+                "relative flex items-center justify-center px-4 py-2 rounded-lg font-medium transition-all duration-200",
                 current.bg,
                 current.hover,
                 current.text,

@@ -14,7 +14,7 @@ const ProtectedRoute = ({ children }) => {
       const storedToken = localStorage.getItem("accessToken");
 
       if (!storedToken) {
-        router.push("/admin/login");
+        router.push("/admin");
         return;
       }
 
@@ -29,7 +29,7 @@ const ProtectedRoute = ({ children }) => {
         if (!res.ok) {
           localStorage.removeItem("accessToken")
           setLoggedIn(false);
-          router.push("/admin/login")
+          router.push("/admin")
           return;
         }
         const data = await res.json();
@@ -39,7 +39,7 @@ const ProtectedRoute = ({ children }) => {
         console.error("JWT verification failed:", error);
         localStorage.removeItem("accessToken");
         setLoggedIn(false);
-        router.push("/admin/login");
+        router.push("/admin");
       } finally {
         setVerifying(false); // <-- finished verifying
       }
