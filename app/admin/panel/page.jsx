@@ -2,9 +2,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import Button from "@/components/ui/Button";
-import { Edit, Trash2, Eye, Heart } from "lucide-react";
 import BlogCard from "@/components/admin/BlogCard";
 
 const AdminPanel = () => {
@@ -30,7 +28,12 @@ const AdminPanel = () => {
 
     return (
         <div className="p-6">
-            <h1 className="text-2xl font-semibold mb-6">Admin Panel - Blogs</h1>
+            <div className="flex">
+                <h1 className="text-2xl font-semibold mb-6">Admin Panel - Blogs</h1>
+                <Link href="/admin/panel/blog-info/new" className="ml-auto">
+                    <Button>Create New Blog</Button>
+                </Link>
+            </div>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {blogs.map((blog) => (
                     <BlogCard key={blog._id} blog={blog} />

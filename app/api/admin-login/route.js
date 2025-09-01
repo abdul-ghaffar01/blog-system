@@ -7,7 +7,6 @@ const REFRESH_SECRET = process.env.REFRESH_SECRET;
 
 export async function POST(request) {
   try {
-    console.log("comming", request)
     const body = await request.json();
     const { email, password } = body;
 
