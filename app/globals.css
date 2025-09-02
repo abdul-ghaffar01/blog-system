@@ -8,14 +8,6 @@
 @theme {
   --dark-mode: class;
 }
-/* spacing: 0..96 (Tailwind spacing scale numbers), plus px + auto where valid */
-@source inline("m-{0..96} mx-{0..96} my-{0..96} mt-{0..96} mr-{0..96} mb-{0..96} ml-{0..96}");
-@source inline("p-{0..96} px-{0..96} py-{0..96} pt-{0..96} pr-{0..96} pb-{0..96} pl-{0..96}");
-@source inline("m-px mx-px my-px mt-px mr-px mb-px ml-px m-auto mx-auto my-auto");
-
-/* border radius: all named sizes + per-corner variants */
-@source inline("rounded{,-none,-sm,-md,-lg,-xl,-2xl,-3xl,-full}");
-@source inline("rounded-{t,r,b,l,tl,tr,br,bl}{,-none,-sm,-md,-lg,-xl,-2xl,-3xl,-full}");
 
 :root {
   /* Grays */
@@ -82,6 +74,18 @@
   --color-danger-hover: var(--danger-hover);
 }
 
+@theme {
+  --dark-mode: class;
+
+  /* ✅ Add breakpoints */
+  --breakpoint-sm: 640px; /* sm */
+  --breakpoint-md: 768px; /* md */
+  --breakpoint-lg: 1024px; /* lg */
+  --breakpoint-xl: 1280px; /* xl */
+  --breakpoint-2xl: 1536px; /* 2xl */
+}
+
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -124,7 +128,8 @@ table {
   width: 100%;
 }
 
-td, th {
+td,
+th {
   border: 1px solid var(--foreground);
   padding: 4px;
 }

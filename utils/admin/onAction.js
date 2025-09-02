@@ -32,6 +32,9 @@ const onAction = (type, val) => {
         case "table":
             handleTable(val, editor)
             break;
+        case "box":
+            handleBox(val, editor)
+            break;
         default:
             return;
     }

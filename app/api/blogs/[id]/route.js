@@ -9,7 +9,7 @@ export async function GET(req, { params }) {
     try {
         await connectDB();
 
-        const { id } = params; // blog id from URL
+        const { id } = params; // blog id/slug from URL
         const blog = await Blog.findById(id);
 
         if (!blog) {

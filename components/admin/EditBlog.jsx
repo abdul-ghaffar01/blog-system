@@ -384,7 +384,7 @@ export default function EditBlog({ id }) {
             <hr />
             <div className="flex items-center justify-between">
                 <h2 className="text-2xl font-bold">Preview of the blog</h2>
-                <Button loading={editClicked} variant="success" onClick={() => router.push(`/admin/panel/edit/${blog._id}`)}>
+                <Button loading={editClicked} variant="success" onClick={() => { router.push(`/admin/panel/edit/${blog._id}`); setEditClicked(true); }}>
                     Edit Blog
                 </Button>
             </div>

@@ -1,34 +1,71 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Filter } from "lucide-react";
 import BlogCard from "@/components/ui/BlogCard";
 import BlogsSkeleton from "@/components/ui/skeletons/BlogsSkeleton";
+import Button from "@/components/ui/Button";
+import Loader from "@/components/Loader";
 
 const Page = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const [blogs, setBlogs] = useState([]);
   const [featured, setFeatured] = useState(null);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [fetchingCategories, setFetchingCategories] = useState(false);
+  const [categories, setCategories] = useState([{ name: "All", count: 0 }]);
 
   // filters
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
   const [sort, setSort] = useState("Newest");
 
+  // ✅ Fetch latest blog once for Featured
+  useEffect(() => {
+    const fetchFeatured = async () => {
+      try {
+        const res = await fetch(`/api/blogs?limit=1&sort=recent`);
+        const data = await res.json();
+        setFeatured(data.blogs[0] || null);
+      } catch (err) {
+        console.error("Failed to fetch featured blog", err);
+      }
+    };
+    fetchFeatured();
+  }, []);
+
+  // read category from URL
+  useEffect(() => {
+    const urlCategory = searchParams.get("category");
+    if (urlCategory) setCategory(urlCategory);
+  }, [searchParams]);
+
   // fetch blogs
   useEffect(() => {
     const fetchBlogs = async () => {
-      setLoading(true);
+      if (page === 1) setLoading(true);
+      else setLoadingMore(true);
+
       try {
-        const res = await fetch(`/api/blogs?page=${page}&limit=6`);
+        const params = new URLSearchParams();
+        params.append("page", page);
+        params.append("limit", 6);
+        if (category && category !== "All") params.append("category", category);
+        if (search) params.append("search", search);
+        if (sort) params.append("sort", sort.toLowerCase());
+
+        const res = await fetch(`/api/blogs?${params.toString()}`);
         const data = await res.json();
 
         if (page === 1) {
           setBlogs(data.blogs);
-          setFeatured(data.blogs.find((b) => b.isFeatured) || data.blogs[0]);
         } else {
           setBlogs((prev) => [...prev, ...data.blogs]);
         }
@@ -38,21 +75,33 @@ const Page = () => {
         console.error("Failed to fetch blogs", err);
       } finally {
         setLoading(false);
+        setLoadingMore(false);
       }
     };
     fetchBlogs();
-  }, [page]);
+  }, [page, category, search, sort]);
 
-  // categories
-  const categories = ["All", ...new Set(blogs.map((b) => b.category))];
+  // fetch Categories
+  useEffect(() => {
+    const fetchCategories = async () => {
+      setFetchingCategories(true);
+      try {
+        const res = await fetch(`/api/categories`);
+        const data = await res.json();
+        setCategories([{ name: "All", count: 0 }, ...data]);
+      } catch (err) {
+        console.error("Failed to fetch categories", err);
+      } finally {
+        setFetchingCategories(false);
+      }
+    };
+    fetchCategories();
+  }, []);
 
-  // filtered
+  // filtered blogs
   let filtered = blogs.filter((item) => {
     const matchCategory = category === "All" || item.category === category;
-    const matchSearch =
-      item.title.toLowerCase().includes(search.toLowerCase()) ||
-      item.excerpt.toLowerCase().includes(search.toLowerCase());
-    return matchCategory && matchSearch;
+    return matchCategory;
   });
 
   if (sort === "Newest") {
@@ -62,6 +111,19 @@ const Page = () => {
   } else if (sort === "Popular") {
     filtered = [...filtered].sort((a, b) => (b.views || 0) - (a.views || 0));
   }
+
+  // handle category click
+  const handleCategoryChange = (newCategory) => {
+    setCategory(newCategory);
+    setPage(1);
+
+    const params = new URLSearchParams();
+    if (newCategory && newCategory !== "All") {
+      params.set("category", newCategory);
+    }
+    router.replace(`?${params.toString()}`, { scroll: false });
+
+  };
 
   if (loading && blogs.length === 0) {
     return <BlogsSkeleton />;
@@ -93,7 +155,6 @@ const Page = () => {
             <h2 className="mt-2 text-4xl font-bold">{featured.title}</h2>
             <p className="mt-3 text-gray-200">{featured.excerpt}</p>
 
-            {/* Stats */}
             <div className="flex items-center gap-6 mt-3 text-sm text-gray-300">
               <span>👁 {featured.views} views</span>
               <span>❤️ {featured.likes} likes</span>
@@ -120,17 +181,17 @@ const Page = () => {
           <div className="mb-6">
             <h3 className="text-sm font-semibold mb-3 text-[var(--foreground)]">Categories</h3>
             <div className="grid grid-cols-2 sm:flex sm:flex-wrap lg:flex-col gap-2">
-              {categories.map((c) => (
+              {categories.map((c, index) => (
                 <button
-                  key={c}
-                  onClick={() => setCategory(c)}
+                  key={index}
+                  onClick={() => handleCategoryChange(c.name)}
                   className={`px-3 py-1.5 rounded-lg text-sm font-medium transition text-center sm:text-left
-            ${category === c
+            ${category === c.name
                       ? "bg-[var(--primary)] text-white"
                       : "bg-[var(--background)] text-[var(--foreground)] hover:bg-[var(--primary-hover)] hover:text-white"
                     }`}
                 >
-                  {c}
+                  {c.name}
                 </button>
               ))}
             </div>
@@ -159,21 +220,22 @@ const Page = () => {
         <div className="flex-1">
           <motion.div layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {filtered
-              .filter((b) => b._id !== featured?._id)
+              // .filter((b) => b._id !== featured?._id)
               .map((blog, i) => (
                 <BlogCard key={blog._id} blog={blog} idx={i} />
               ))}
           </motion.div>
 
           {/* See More */}
-          {hasMore && !loading && (
+          {hasMore && (
             <div className="text-center mt-8">
-              <button
+              <Button
+                loading={loadingMore}
                 onClick={() => setPage((p) => p + 1)}
                 className="px-6 py-2 rounded-lg font-medium bg-[var(--primary)] text-white hover:bg-[var(--primary-hover)] transition"
               >
-                See More
-              </button>
+                {loadingMore ? <Loader size="sm" /> : "See More"}
+              </Button>
             </div>
           )}
         </div>

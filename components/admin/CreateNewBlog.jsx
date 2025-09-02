@@ -18,6 +18,7 @@ const emptyBlog = {
   publishedAt: Date.now(),
   views: 0,
   likes: 0,
+  author: "Abdul Ghaffar",
   metaTitle: "",
   metaDescription: "",
   content: [],

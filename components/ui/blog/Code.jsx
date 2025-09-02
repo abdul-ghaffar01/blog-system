@@ -1,15 +1,16 @@
 "use client"
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { oneDark, coy, okaidia, funky, tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { Clipboard, Check } from "lucide-react";
-import { useTheme } from "next-themes";
-import readChildren from "@/utils/readChildren";
 
 const Code = ({ item }) => {
     const [copied, setCopied] = useState(false);
-    const { theme, setTheme } = useTheme();
 
+    // checking what is coming in item
+    useEffect(() => {
+        console.log(item);
+    }, [item]);
 
     const handleCopy = () => {
         navigator.clipboard.writeText(item.code);
@@ -40,3 +41,4 @@ const Code = ({ item }) => {
 };
 
 export default Code;
+
