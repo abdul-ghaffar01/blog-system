@@ -21,7 +21,7 @@ export async function POST(req) {
         console.error("Error inserting JSON blogs:", err);
         return new Response(
             JSON.stringify({
-                message: "Error inserting blogs ❌",
+                message: "Error inserting blogs",
                 error: err.message,
             }),
             { status: 500, headers: { "Content-Type": "application/json" } }
