@@ -97,6 +97,7 @@ export default function CreateNewBlog() {
       });
 
       const data = await res.json();
+      console.log("Insert JSON response:", data);
 
       if (!res.ok) {
         setMessage({

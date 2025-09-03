@@ -1,41 +1,35 @@
+import { ObjectId } from "mongodb";
 import { connectDB } from "@/lib/db";
 import Blog from "@/models/Blog";
-import mongoose from "mongoose";
 
 export async function POST(req) {
     try {
         await connectDB();
 
         const body = await req.json();
+        let blogs = Array.isArray(body) ? body : [body];
 
-        // Normalize input: wrap single object into an array
-        const blogs = Array.isArray(body) ? body : [body];
-
-        // ✅ Process _id for each document
-        const preparedBlogs = blogs.map((doc) => {
-            if (doc._id) {
-                try {
-                    doc._id = new mongoose.Types.ObjectId(doc._id);
-                } catch {
-                    throw new Error(`Invalid _id format: ${doc._id}`);
-                }
+        // 🔹 Normalize _id fields
+        blogs = blogs.map((blog) => {
+            if (blog._id && blog._id.$oid) {
+                blog._id = new ObjectId(blog._id.$oid);
+            } else if (blog._id && typeof blog._id === "string") {
+                blog._id = new ObjectId(blog._id);
             }
-            return doc;
+            return blog;
         });
 
-        // ✅ Insert into DB
-        const inserted = await Blog.insertMany(preparedBlogs, {
-            ordered: false, // continue on errors if multiple
-        });
+        // 🔹 Insert blogs
+        const result = await Blog.insertMany(blogs, { ordered: false });
 
-        return new Response(JSON.stringify(inserted), {
-            status: 201,
-            headers: { "Content-Type": "application/json" },
-        });
+        return new Response(
+            JSON.stringify({ message: "Blogs inserted ✅", result }),
+            { status: 201, headers: { "Content-Type": "application/json" } }
+        );
     } catch (err) {
         console.error("Error inserting JSON blogs:", err);
         return new Response(
-            JSON.stringify({ message: err.message || "Failed to insert blogs ❌" }),
+            JSON.stringify({ message: "Error inserting blogs ❌", error: err.message }),
             { status: 500, headers: { "Content-Type": "application/json" } }
         );
     }
