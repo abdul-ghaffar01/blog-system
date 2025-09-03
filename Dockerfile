@@ -1,5 +1,5 @@
 FROM node:18-alpine
-WORKDIR /portfolio
+WORKDIR /blogs
 
 # Install dependencies
 COPY package*.json ./
