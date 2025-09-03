@@ -8,6 +8,9 @@ RUN npm install
 # Copy all files
 COPY . .
 
+# ✅ Ensure uploads folder exists inside the container
+RUN mkdir -p /blogs/uploads
+
 # Expose Next.js port
 EXPOSE 6001
 
