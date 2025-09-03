@@ -88,7 +88,7 @@ export default function EditBlog({ id }) {
     const handleDelete = async () => {
         setIsDeleteRequestProcessing(true);
         try {
-            const token = localStorage.getItem("token");
+            const token = localStorage.getItem("accessToken");
             await fetch(`/api/blogs/${id}`, {
                 method: "DELETE",
                 headers: {

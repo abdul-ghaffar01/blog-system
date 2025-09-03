@@ -30,6 +30,13 @@
 
   --danger: #dc2626; /* red-600 */
   --danger-hover: #b91c1c; /* red-700 */
+
+  --primary-light: #dbeafe; /* blue-100 */
+  --success-light: #dcfce7; /* green-100 */
+  --warning-light: #fef9c3; /* yellow-100 */
+  --danger-light: #fee2e2; /* red-100 */
+  --accent-light: #e0e7ff; /* indigo-100 */
+  --muted-light: #f3f4f6; /* gray-100 */
 }
 
 .dark {
@@ -52,6 +59,13 @@
 
   --danger: #dc2626; /* red-600 */
   --danger-hover: #b91c1c; /* red-700 */
+
+  --primary-light: #1e3a8a20; /* blue-900 with opacity */
+  --success-light: #14532d20; /* green-900 with opacity */
+  --warning-light: #713f1220; /* yellow-900 with opacity */
+  --danger-light: #7f1d1d20; /* red-900 with opacity */
+  --accent-light: #3730a320; /* indigo-900 with opacity */
+  --muted-light: #37415120; /* gray-800 with opacity */
 }
 
 @theme inline {
@@ -84,7 +98,6 @@
   --breakpoint-xl: 1280px; /* xl */
   --breakpoint-2xl: 1536px; /* 2xl */
 }
-
 
 body {
   background: var(--background);
@@ -132,4 +145,21 @@ td,
 th {
   border: 1px solid var(--foreground);
   padding: 4px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.perspective {
+  perspective: 1000px;
 }

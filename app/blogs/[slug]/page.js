@@ -129,16 +129,18 @@ export default function BlogPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7 }}
-            className="mb-8"
+            className="mb-8 overflow-hidden rounded-xl relative w-full aspect-[16/9]"
           >
             <Image
-              width={200}
-              height={200}
               src={blog.coverImage}
               alt={blog.title}
-              className="w-full h-72 md:h-96 object-cover rounded-xl shadow-md"
+              fill
+              sizes="100vw"
+              priority
+              className="object-cover"
             />
           </motion.div>
+
         )}
 
         {/* Content */}
@@ -172,13 +174,15 @@ export default function BlogPage() {
           className="p-6 rounded-xl shadow-md text-center"
           style={{ background: "var(--surface)" }}
         >
-          <Image
-            width={100}
-            height={100}
-            src="https://i.pravatar.cc/100"
-            alt="author"
-            className="w-20 h-20 rounded-full mx-auto mb-4 "
-          />
+          <div className="bg-background rounded-full border border-border mx-auto mb-4 w-20 h-20 flex items-center justify-center overflow-hidden">
+            <Image
+              width={100}
+              height={100}
+              src="https://iabdulghaffar.com/_next/image?url=%2Fprofile.png&w=256&q=100"
+              alt="author"
+              className="w-full h-auto object-contain object-top"
+            />
+          </div>
           <h4 className="font-semibold">{blog.author || "Abdul Ghaffar"}</h4>
           <p className="text-sm opacity-70 mt-2">
             Passionate writer who loves sharing ideas and knowledge.
