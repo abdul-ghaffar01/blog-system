@@ -1,4 +1,4 @@
-import { ObjectId } from "mongodb";
+import mongoose from "mongoose";
 import { connectDB } from "@/lib/db";
 import Blog from "@/models/Blog";
 
@@ -9,17 +9,15 @@ export async function POST(req) {
         const body = await req.json();
         let blogs = Array.isArray(body) ? body : [body];
 
-        // 🔹 Normalize _id fields
         blogs = blogs.map((blog) => {
             if (blog._id && blog._id.$oid) {
-                blog._id = new ObjectId(blog._id.$oid);
+                blog._id = new mongoose.Types.ObjectId(blog._id.$oid);
             } else if (blog._id && typeof blog._id === "string") {
-                blog._id = new ObjectId(blog._id);
+                blog._id = new mongoose.Types.ObjectId(blog._id);
             }
             return blog;
         });
 
-        // 🔹 Insert blogs
         const result = await Blog.insertMany(blogs, { ordered: false });
 
         return new Response(

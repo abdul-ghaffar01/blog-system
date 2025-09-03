@@ -108,7 +108,7 @@ export default function CreateNewBlog() {
         return;
       }
 
-      router.replace(`/admin/panel/blog-info/${data._id}`);
+      router.push(`/admin/panel/`);
     } catch (err) {
       console.error("Error inserting blog:", err);
       setMessage({
