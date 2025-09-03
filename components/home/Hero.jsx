@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -22,8 +23,8 @@ export default function Hero() {
 
       {/* angled divider */}
       <motion.div
-        initial={{ x: -150,}}
-        animate={{ x: 0}}
+        initial={{ x: -150, }}
+        animate={{ x: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="relative hidden w-24 h-[200%] md:flex items-center justify-center">
         {/* Red angled bar */}
@@ -68,12 +69,11 @@ export default function Hero() {
           transition={{ delay: 0.8, duration: 0.5 }}
           className="mt-6 flex gap-4 mx-auto md:mx-0"
         >
-          <button className="px-6 py-3 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition">
-            Start Reading
-          </button>
-          <button className="px-6 py-3 rounded-lg border border-input hover:bg-muted transition">
-            Explore Topics
-          </button>
+          <Link href="/blogs" >
+            <button className="px-6 py-3 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition">
+              Start Reading
+            </button>
+          </Link>
         </motion.div>
       </motion.div>
     </section>

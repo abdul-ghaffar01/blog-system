@@ -4,9 +4,9 @@ import Image from "next/image";
 import { Eye } from "lucide-react";
 import Link from "next/link";
 
-const BlogCard = ({ blog, idx, isAdmin }) => {
+const BlogCard = ({ blog, idx }) => {
   return (
-    <Link href={isAdmin ? `/admin/panel/blog-info/${blog._id}` : `/blogs/${blog._id}`}>
+    <Link href={`/blogs/${blog.slug}`}>
 
       <motion.div
         key={blog._id}

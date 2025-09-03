@@ -4,23 +4,42 @@ import Blog from "@/models/Blog";
 import jwt from "jsonwebtoken";
 import { rm } from "fs/promises";
 import path from "path";
+import mongoose from "mongoose";
 
 export async function GET(req, { params }) {
-    try {
-        await connectDB();
+  try {
+    await connectDB();
 
-        const { id } = params; // blog id/slug from URL
-        const blog = await Blog.findById(id);
+    const { id } = params; // blog id or slug from URL
+    let filter;
 
-        if (!blog) {
-            return new Response(JSON.stringify({ message: "Blog not found" }), { status: 404, headers: { "Content-Type": "application/json" } });
-        }
-
-        return new Response(JSON.stringify(blog), { status: 200, headers: { "Content-Type": "application/json" } });
-    } catch (error) {
-        console.error("Error fetching blog:", error);
-        return new Response(JSON.stringify({ message: "Failed to fetch blog" }), { status: 500, headers: { "Content-Type": "application/json" } });
+    // Check if id is a valid ObjectId
+    if (mongoose.Types.ObjectId.isValid(id)) {
+      filter = { $or: [{ _id: id }, { slug: id }] };
+    } else {
+      filter = { slug: id };
     }
+
+    const blog = await Blog.findOne(filter);
+
+    if (!blog) {
+      return new Response(
+        JSON.stringify({ message: "Blog not found" }),
+        { status: 404, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    return new Response(
+      JSON.stringify(blog),
+      { status: 200, headers: { "Content-Type": "application/json" } }
+    );
+  } catch (error) {
+    console.error("Error fetching blog:", error);
+    return new Response(
+      JSON.stringify({ message: "Failed to fetch blog" }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
+    );
+  }
 }
 
 
