@@ -96,7 +96,7 @@ export default function BlogPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-12 grid lg:grid-cols-3 gap-8">
+    <div className="container mx-auto px-4 py-12 flex flex-col md:flex-row gap-8">
 
       {blog ? <MainBlog blog={blog} /> : <BlogNotFound />}
       <SideBar

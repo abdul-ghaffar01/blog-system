@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 const MainBlog = ({ blog }) => {
     return (
-        <article className="lg:col-span-2" style={{ color: "var(--foreground)" }}>
+        <article className="flex-grow flex-3" style={{ color: "var(--foreground)" }}>
             {/* Title */}
             <motion.h1
                 initial={{ opacity: 0, y: 20 }}
@@ -49,7 +49,7 @@ const MainBlog = ({ blog }) => {
             )}
 
             {/* Content */}
-            <div className="prose prose-lg max-w-none">
+            <div className="max-w-screen">
                 {constructBlog(blog.content)}
             </div>
 
