@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import Logo from "@/components/navbar/Logo";
-import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
+import { Github, Instagram, Linkedin } from "lucide-react";
 
 export default function Footer() {
     const navLinks = [
@@ -15,10 +15,9 @@ export default function Footer() {
     ];
 
     const socials = [
-        { name: "Facebook", icon: Facebook, href: "#" },
-        { name: "Twitter", icon: Twitter, href: "#" },
-        { name: "Instagram", icon: Instagram, href: "#" },
-        { name: "LinkedIn", icon: Linkedin, href: "#" },
+        { name: "Github", icon: Github, href: "https://github.com/abdul-ghaffar01" },
+        { name: "Instagram", icon: Instagram, href: "https://www.instagram.com/i_abdul_ghaffar" },
+        { name: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/in/abdul-ghaffar01/" },
     ];
 
     return (
@@ -54,6 +53,7 @@ export default function Footer() {
                             <li key={link.name}>
                                 <Link
                                     href={link.href}
+                                    target="_blank"
                                     className="hover:text-[var(--primary)] transition-colors"
                                 >
                                     {link.name}
