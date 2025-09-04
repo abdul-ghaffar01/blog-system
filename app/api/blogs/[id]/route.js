@@ -6,14 +6,14 @@ import { rm } from "fs/promises";
 import path from "path";
 import mongoose from "mongoose";
 
-export async function GET(req, { params }) {
+// GET blog (by id or slug)
+export async function GET(req, context) {
   try {
     await connectDB();
 
-    const { id } = params; // blog id or slug from URL
+    const { id } = await context.params; // ✅ await params
     let filter;
 
-    // Check if id is a valid ObjectId
     if (mongoose.Types.ObjectId.isValid(id)) {
       filter = { $or: [{ _id: id }, { slug: id }] };
     } else {
@@ -29,101 +29,121 @@ export async function GET(req, { params }) {
       );
     }
 
-    return new Response(
-      JSON.stringify(blog),
-      { status: 200, headers: { "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify(blog), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
   } catch (error) {
     console.error("Error fetching blog:", error);
     return new Response(
       JSON.stringify({ message: "Failed to fetch blog" }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
+      { status: 500 }
     );
   }
 }
 
+// UPDATE blog
+export async function PUT(req, context) {
+  try {
+    await connectDB();
+    const { id } = await context.params;
+    const data = await req.json();
 
-// app/api/blogs/[id]/route.js
-export async function PUT(req, { params }) {
-  await connectDB();
-  const { id } = params;
-  const data = await req.json();
-
-  // Only allow certain fields
-  const allowedFields = [
-    "title",
-    "slug",
-    "category",
-    "tags",
-    "excerpt",
-    "coverImage",
-    "ogImage",
-    "status",
-    "isFeatured",
-    "publishedAt",
-    "views",
-    "likes",
-    "metaTitle",
-    "metaDescription",
-    "content"
-  ];
-
-  const updates = {};
-  for (let field of allowedFields) {
-    if (data[field] !== undefined) {
-      updates[field] = data[field];
+    // 🔹 Auth check
+    const authHeader = req.headers.get("authorization");
+    if (!authHeader?.startsWith("Bearer ")) {
+      return new Response(JSON.stringify({ message: "Unauthorized ❌" }), {
+        status: 401,
+      });
     }
+
+    try {
+      jwt.verify(authHeader.split(" ")[1], process.env.JWT_SECRET);
+    } catch {
+      return new Response(JSON.stringify({ message: "Invalid token ❌" }), {
+        status: 401,
+      });
+    }
+
+    // Only allow certain fields
+    const allowedFields = [
+      "title",
+      "slug",
+      "category",
+      "tags",
+      "excerpt",
+      "coverImage",
+      "ogImage",
+      "status",
+      "isFeatured",
+      "publishedAt",
+      "views",
+      "likes",
+      "metaTitle",
+      "metaDescription",
+      "content",
+    ];
+
+    const updates = {};
+    for (let field of allowedFields) {
+      if (data[field] !== undefined) updates[field] = data[field];
+    }
+
+    const filter = mongoose.Types.ObjectId.isValid(id) ? { _id: id } : { slug: id };
+    const updatedBlog = await Blog.findOneAndUpdate(filter, updates, { new: true });
+
+    if (!updatedBlog) {
+      return new Response(JSON.stringify({ message: "Blog not found" }), {
+        status: 404,
+      });
+    }
+
+    return new Response(JSON.stringify(updatedBlog), { status: 200 });
+  } catch (error) {
+    console.error("Error updating blog:", error);
+    return new Response(
+      JSON.stringify({ message: "Failed to update blog" }),
+      { status: 500 }
+    );
   }
-
-  const updatedBlog = await Blog.findByIdAndUpdate(id, updates, { new: true });
-
-  if (!updatedBlog) {
-    return new Response(JSON.stringify({ message: "Blog not found" }), { status: 404 });
-  }
-
-  return new Response(JSON.stringify(updatedBlog), { status: 200 });
 }
 
-
 // DELETE blog
-export async function DELETE(req, { params }) {
+export async function DELETE(req, context) {
   try {
     await connectDB();
 
+    const { id } = await context.params;
+
     // 🔹 Auth
     const authHeader = req.headers.get("authorization");
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return new Response(
-        JSON.stringify({ message: "Unauthorized ❌" }),
-        { status: 401, headers: { "Content-Type": "application/json" } }
-      );
+    if (!authHeader?.startsWith("Bearer ")) {
+      return new Response(JSON.stringify({ message: "Unauthorized ❌" }), {
+        status: 401,
+      });
     }
 
-    const token = authHeader.split(" ")[1];
     let decoded;
     try {
-      decoded = jwt.verify(token, process.env.JWT_SECRET);
-    } catch (err) {
-      return new Response(
-        JSON.stringify({ message: "Invalid or expired token ❌" }),
-        { status: 401, headers: { "Content-Type": "application/json" } }
-      );
+      decoded = jwt.verify(authHeader.split(" ")[1], process.env.JWT_SECRET);
+    } catch {
+      return new Response(JSON.stringify({ message: "Invalid or expired token ❌" }), {
+        status: 401,
+      });
     }
 
     // 🔹 Delete blog
-    const { id } = params;
-    const blog = await Blog.findById(id);
+    const filter = mongoose.Types.ObjectId.isValid(id) ? { _id: id } : { slug: id };
+    const blog = await Blog.findOne(filter);
     if (!blog) {
-      return new Response(
-        JSON.stringify({ message: "Blog not found ❌" }),
-        { status: 404, headers: { "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ message: "Blog not found ❌" }), {
+        status: 404,
+      });
     }
 
-    await Blog.findByIdAndDelete(id);
+    await Blog.deleteOne(filter);
 
     // 🔹 Delete blog’s images folder
-    // (assuming you store them in /public/uploads/{blog._id} or /public/uploads/{blog.slug})
     const folderPath = path.join(process.cwd(), "public", "uploads", blog._id.toString());
     try {
       await rm(folderPath, { recursive: true, force: true });
@@ -134,13 +154,13 @@ export async function DELETE(req, { params }) {
 
     return new Response(
       JSON.stringify({ message: "Blog and images deleted successfully ✅" }),
-      { status: 200, headers: { "Content-Type": "application/json" } }
+      { status: 200 }
     );
   } catch (error) {
     console.error("Error deleting blog:", error);
     return new Response(
       JSON.stringify({ message: "Failed to delete blog ❌" }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
+      { status: 500 }
     );
   }
 }
