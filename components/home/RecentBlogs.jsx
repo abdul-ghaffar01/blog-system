@@ -1,3 +1,4 @@
+"use client"
 import BlogCarousel from "../ui/BlogCrousel";
 import { useEffect, useState } from "react";
 import SkeletonCarousel from "../ui/skeletons/SkeletonCarousel";

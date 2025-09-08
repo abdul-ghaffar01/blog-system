@@ -8,11 +8,11 @@ RUN npm install
 # Copy all files
 COPY . .
 
-# ✅ Ensure uploads folder exists inside the container
-RUN mkdir -p /blogs/uploads
+# ✅ Ensure public/uploads folder exists inside the container
+RUN mkdir -p /blogs/public/uploads
 
 # Expose Next.js port
 EXPOSE 6001
 
-# Build and run at container startup (env vars injected by docker-compose will be available here)
+# Build and run at container startup
 CMD ["sh", "-c", "npm run build && npm run start -- -H 0.0.0.0 -p 6001"]
