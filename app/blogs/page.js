@@ -3,7 +3,8 @@ import { BASE_URL } from "@/utils/env";
 
 // ✅ page.js stays server-side
 export default async function Page({ searchParams }) {
-  const categoryParam = searchParams?.category || "All";
+  const resolvedSearchParams = await searchParams;
+  const categoryParam = resolvedSearchParams?.category || "All";
 
   // Initial featured
   const featuredRes = await fetch(
