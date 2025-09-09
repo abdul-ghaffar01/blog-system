@@ -8,6 +8,7 @@ import BlogCard from "@/components/ui/BlogCard";
 import BlogsSkeleton from "@/components/ui/skeletons/BlogsSkeleton";
 import Button from "@/components/ui/Button";
 import Loader from "@/components/Loader";
+import Link from "next/link";
 
 const Page = () => {
   const router = useRouter();
@@ -160,12 +161,12 @@ const Page = () => {
               <span>❤️ {featured.likes} likes</span>
             </div>
 
-            <a
+            <Link
               href={`/blogs/${featured.slug}`}
               className="inline-block mt-5 px-4 py-2 bg-[var(--primary)] rounded-lg font-medium hover:bg-[var(--primary-hover)] transition"
             >
               Read More →
-            </a>
+            </Link>
           </div>
         </motion.section>
       )}
@@ -220,7 +221,6 @@ const Page = () => {
         <div className="flex-1">
           <motion.div layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {filtered
-              // .filter((b) => b._id !== featured?._id)
               .map((blog, i) => (
                 <BlogCard key={blog._id} blog={blog} idx={i} />
               ))}

@@ -8,7 +8,7 @@ const SideBar = ({ categories, hasMore, recentBlogs, loadMoreBlogs, loadingMore 
 
 
     return (
-        <aside className="space-y-8 flex-1">
+        <aside className="space-y-8 flex-1 max-w-[400px]">
             {/* Author Card */}
             <div
                 className="p-6 rounded-xl shadow-md text-center"
