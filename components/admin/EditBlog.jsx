@@ -46,7 +46,7 @@ export default function EditBlog({ id }) {
     const handleSave = async () => {
         try {
             setSaving(true);
-            const token = localStorage.getItem("token");
+            const token = localStorage.getItem("accessToken");
 
             const res = await fetch(`/api/blogs/${id}`, {
                 method: "PUT",

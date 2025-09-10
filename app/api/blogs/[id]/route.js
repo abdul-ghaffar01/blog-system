@@ -51,6 +51,7 @@ export async function PUT(req, context) {
 
     // 🔹 Auth check
     const authHeader = req.headers.get("authorization");
+    console.log("auth head: ", authHeader )
     if (!authHeader?.startsWith("Bearer ")) {
       return new Response(JSON.stringify({ message: "Unauthorized ❌" }), {
         status: 401,
