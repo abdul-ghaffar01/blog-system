@@ -4,7 +4,6 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import BlogCard from "@/components/ui/BlogCard";
 import Button from "@/components/ui/Button";
-import Loader from "@/components/Loader";
 import Link from "next/link";
 import BlogFilters from "./BlogFilters";
 
@@ -30,6 +29,7 @@ export default function ShowAllBlogs({
                 }`
             );
             const data = await res.json();
+            console.log(data);
             setBlogs((prev) => [...prev, ...data.blogs]);
             setHasMore(data.hasMore);
             setPage((p) => p + 1);
@@ -97,7 +97,7 @@ export default function ShowAllBlogs({
                                 onClick={loadMore}
                                 className="px-6 py-2 rounded-lg font-medium bg-[var(--primary)] text-white hover:bg-[var(--primary-hover)] transition"
                             >
-                                {loadingMore ? <Loader size="sm" /> : "See More"}
+                                See more
                             </Button>
                         </div>
                     )}

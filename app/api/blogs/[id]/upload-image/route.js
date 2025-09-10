@@ -5,7 +5,6 @@ import { writeFile, unlink, mkdir } from "fs/promises";
 import path from "path";
 import fs from "fs";
 
-// 🔹 POST /api/blogs/:id/upload
 export async function POST(req, { params }) {
   try {
     await connectDB();
@@ -22,7 +21,7 @@ export async function POST(req, { params }) {
       );
     }
 
-    // 🔹 Get the blog
+    // Get the blog
     const blog = await Blog.findById(id);
     if (!blog) {
       return new Response(
@@ -31,13 +30,13 @@ export async function POST(req, { params }) {
       );
     }
 
-    // 🔹 Create folder for this blog's slug if it doesn't exist
-    const folderPath = path.join(process.cwd(), "public/uploads", blog.slug);
+    // Create folder if not exists
+    const folderPath = path.join(process.cwd(), "public", "uploads", blog.slug);
     if (!fs.existsSync(folderPath)) {
       await mkdir(folderPath, { recursive: true });
     }
 
-    // 🔹 Delete old file if exists
+    // Delete old file
     if (blog[field] && blog[field].startsWith(`/uploads/${blog.slug}/`)) {
       try {
         await unlink(path.join(process.cwd(), "public", blog[field]));
@@ -46,23 +45,24 @@ export async function POST(req, { params }) {
       }
     }
 
-    // 🔹 Save new file
+    // Save new file
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
-    const filename = `${field}-${Date.now()}-${file.name}`;
+    const safeName = file.name.replace(/\s+/g, "_"); // replace spaces
+    const filename = `${field}-${Date.now()}-${safeName}`;
     const filePath = path.join(folderPath, filename);
 
     await writeFile(filePath, buffer);
 
-    // 🔹 Update DB with new path
+    // Update DB
     const newUrl = `/uploads/${blog.slug}/${filename}`;
     blog[field] = newUrl;
     await blog.save();
 
-    return new Response(
-      JSON.stringify({ url: newUrl }),
-      { status: 200, headers: { "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ url: newUrl }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
   } catch (error) {
     console.error("Image upload error:", error);
     return new Response(
