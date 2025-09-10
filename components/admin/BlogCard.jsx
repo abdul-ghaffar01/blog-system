@@ -21,6 +21,7 @@ const BlogCard = ({ blog }) => {
                     alt={blog.title}
                     fill
                     className="object-cover"
+                    unoptimized
                 />
             </div>
 
