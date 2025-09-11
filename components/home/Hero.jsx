@@ -6,33 +6,33 @@ import Link from "next/link";
 export default function Hero() {
   return (
     <section className="flex items-center justify-center w-full h-[60vh] overflow-hidden">
-      {/* left image */}
       <motion.div
         initial={{ x: -150, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="hidden md:block md:flex-1 h-full relative">
-        <Image
-          src="/hero_section.png"
-          alt="Blog reading guy image"
-          fill
-          className="object-cover"
-          priority
-        />
-      </motion.div>
+        className="hidden md:flex items-center md:flex-1 h-full relative">
+
+        {/* left image */}
+        <div className="w-full">
+          <Image
+            src="/hero_section.png"
+            alt="Blog reading guy image"
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
 
 
-      {/* angled divider */}
-      <motion.div
-        initial={{ x: -150, }}
-        animate={{ x: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="relative hidden w-24 h-[200%] md:flex items-center justify-center">
-        {/* Red angled bar */}
-        <div className="absolute bg-background rotate-[12deg] origin-center w-24 h-[200%]"></div>
+        {/* angled divider */}
+        <div
+          className="absolute right-[-90%] hidden w-full h-[300%] md:flex items-center justify-center">
+          {/* left angled bar */}
+          <div className="absolute bg-background rotate-[12deg] origin-center w-full h-full"></div>
 
-        {/* Blue angled bar */}
-        <div className="absolute bg-background rotate-[-12deg] origin-center w-24 h-[200%]"></div>
+          {/* right angled bar */}
+          <div className="absolute bg-background rotate-[-12deg] origin-center w-full h-full"></div>
+        </div>
       </motion.div>
 
 
